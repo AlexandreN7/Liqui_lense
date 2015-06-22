@@ -1298,9 +1298,15 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // A quoi ser
     QVector<double>* data = NULL;
 
     if (signalId < MaxSelfmixedSignals) {
-        data = mSelfmixedSignals[signalId];
+        //Il y a un problème ici, on utilise les valeurs de la sortie analogique
+        //Si ces valeurs n'existe pas, cela conduit à une segmentation fault
 
-        data = traitement(*mAnalogSignals);
+        if (mAnalogSignals[signalId] == data){
+            //well f*ck
+        }
+        else {
+            data = traitement(*mAnalogSignals);
+        }
     }
     return data;
 }
@@ -1317,10 +1323,6 @@ void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) 
 
         if (data.size() > 0) {
             mEndSampleIdx = data.size()-1;
-
-            // Deallocation:
-            //   QVector will be deallocated either by this function or the destructor
-            //   as a part of deallocating mAnalogSignalData
             mSelfmixedSignals[signalId] = new QVector<double>(data);
         }
     }

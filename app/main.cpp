@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 
     // application name and organization details for the creator of the application
     QCoreApplication::setOrganizationName("LAAS");
-    QCoreApplication::setOrganizationDomain("Proux Schultz");
+    QCoreApplication::setOrganizationDomain("Proux-Schultz");
     QCoreApplication::setApplicationName("Self mixing analyzer");
 
 #ifdef QT_NO_DEBUG
