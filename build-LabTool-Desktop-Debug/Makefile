@@ -33,10 +33,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = LabTool1.0.0
-DISTDIR = /home/archi/liquid_lense_controller/labtool/app/.tmp/LabTool1.0.0
+DISTDIR = /home/archi/Documents/Liqui_lense/app/.tmp/LabTool1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) -L/home/archi/liquid_lense_controller/labtool/app/libusbx/Linux/ -lusb-1.0 -ludev -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/home/archi/Documents/Liqui_lense/app/libusbx/Linux/ -lusb-1.0 -ludev -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -122,7 +122,11 @@ SOURCES       = ../app/main.cpp \
 		../app/device/labtool/labtoolcalibrationdata.cpp \
 		../app/device/digitalsignal.cpp \
 		../app/device/reconfigurelistener.cpp \
-		../app/device/selfmixedsignal.cpp qrc_icons.cpp \
+		../app/device/selfmixedsignal.cpp \
+		../app/capture/uiselfmixedgroup.cpp \
+		../app/capture/uiselfmixedsignal.cpp \
+		../app/capture/uiselfmixedtrigger.cpp \
+		../app/device/labtool/traitement.cpp qrc_icons.cpp \
 		moc_i2cgenerator.cpp \
 		moc_devicemanager.cpp \
 		moc_capturedevice.cpp \
@@ -184,7 +188,10 @@ SOURCES       = ../app/main.cpp \
 		moc_labtoolcalibrationwizardintropage.cpp \
 		moc_labtoolcalibrationwizardconclusionpage.cpp \
 		moc_labtoolcalibrationwizardanalogout.cpp \
-		moc_labtoolcalibrationwizardanalogin.cpp
+		moc_labtoolcalibrationwizardanalogin.cpp \
+		moc_uiselfmixedtrigger.cpp \
+		moc_uiselfmixedsignal.cpp \
+		moc_uiselfmixedgroup.cpp
 OBJECTS       = main.o \
 		i2cgenerator.o \
 		devicemanager.o \
@@ -260,6 +267,10 @@ OBJECTS       = main.o \
 		digitalsignal.o \
 		reconfigurelistener.o \
 		selfmixedsignal.o \
+		uiselfmixedgroup.o \
+		uiselfmixedsignal.o \
+		uiselfmixedtrigger.o \
+		traitement.o \
 		qrc_icons.o \
 		moc_i2cgenerator.o \
 		moc_devicemanager.o \
@@ -322,7 +333,10 @@ OBJECTS       = main.o \
 		moc_labtoolcalibrationwizardintropage.o \
 		moc_labtoolcalibrationwizardconclusionpage.o \
 		moc_labtoolcalibrationwizardanalogout.o \
-		moc_labtoolcalibrationwizardanalogin.o
+		moc_labtoolcalibrationwizardanalogin.o \
+		moc_uiselfmixedtrigger.o \
+		moc_uiselfmixedsignal.o \
+		moc_uiselfmixedgroup.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/shell-unix.conf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -332,6 +346,38 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/g++-base.conf \
 		/usr/lib/qt/mkspecs/common/g++-unix.conf \
 		/usr/lib/qt/mkspecs/qconfig.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Attica.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KActivities.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KArchive.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KAuth.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCrash.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KI18n.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNTLM.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KService.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWallet.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWidgetsAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWindowSystem.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KXmlGui.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_bluetooth.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_bluetooth_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri \
@@ -423,6 +469,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Solid.pri \
+		/usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri \
 		/usr/lib/qt/mkspecs/features/qt_functions.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
@@ -516,7 +567,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
-		../app/device/selfmixedsignal.h ../app/main.cpp \
+		../app/device/selfmixedsignal.h \
+		../app/capture/uiselfmixedtrigger.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/capture/uiselfmixedgroup.h \
+		../app/device/labtool/traitement.h ../app/main.cpp \
 		../app/generator/i2cgenerator.cpp \
 		../app/device/devicemanager.cpp \
 		../app/device/capturedevice.cpp \
@@ -590,7 +645,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		../app/device/labtool/labtoolcalibrationdata.cpp \
 		../app/device/digitalsignal.cpp \
 		../app/device/reconfigurelistener.cpp \
-		../app/device/selfmixedsignal.cpp
+		../app/device/selfmixedsignal.cpp \
+		../app/capture/uiselfmixedgroup.cpp \
+		../app/capture/uiselfmixedsignal.cpp \
+		../app/capture/uiselfmixedtrigger.cpp \
+		../app/device/labtool/traitement.cpp
 QMAKE_TARGET  = LabTool
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = LabTool
@@ -630,6 +689,38 @@ Makefile: ../app/LabTool.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/q
 		/usr/lib/qt/mkspecs/common/g++-base.conf \
 		/usr/lib/qt/mkspecs/common/g++-unix.conf \
 		/usr/lib/qt/mkspecs/qconfig.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Attica.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KActivities.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KArchive.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KAuth.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCrash.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KI18n.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNTLM.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KService.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWallet.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWidgetsAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWindowSystem.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KXmlGui.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_bluetooth.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_bluetooth_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri \
@@ -721,6 +812,11 @@ Makefile: ../app/LabTool.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/q
 		/usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Solid.pri \
+		/usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri \
 		/usr/lib/qt/mkspecs/features/qt_functions.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
@@ -755,6 +851,38 @@ Makefile: ../app/LabTool.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/q
 /usr/lib/qt/mkspecs/common/g++-base.conf:
 /usr/lib/qt/mkspecs/common/g++-unix.conf:
 /usr/lib/qt/mkspecs/qconfig.pri:
+/usr/lib/qt/mkspecs/modules/qt_Attica.pri:
+/usr/lib/qt/mkspecs/modules/qt_KActivities.pri:
+/usr/lib/qt/mkspecs/modules/qt_KArchive.pri:
+/usr/lib/qt/mkspecs/modules/qt_KAuth.pri:
+/usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri:
+/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri:
+/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCrash.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri:
+/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri:
+/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KI18n.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIOCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIOWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri:
+/usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNTLM.pri:
+/usr/lib/qt/mkspecs/modules/qt_KService.pri:
+/usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KWallet.pri:
+/usr/lib/qt/mkspecs/modules/qt_KWidgetsAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KWindowSystem.pri:
+/usr/lib/qt/mkspecs/modules/qt_KXmlGui.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_bluetooth.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_bluetooth_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri:
@@ -846,6 +974,11 @@ Makefile: ../app/LabTool.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/q
 /usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri:
+/usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_Solid.pri:
+/usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri:
 /usr/lib/qt/mkspecs/features/qt_functions.prf:
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
@@ -885,8 +1018,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../app/icons.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../app/generator/i2cgenerator.h ../app/libusbx/include/libusbx-1.0/libusb.h ../app/device/devicemanager.h ../app/device/capturedevice.h ../app/analyzer/uianalyzer.h ../app/device/labtool/labtooldevicetransfer.h ../app/device/labtool/labtooldevicecommthread.h ../app/device/labtool/labtooldevicecomm.h ../app/device/simulator/uisimulatorconfigdialog.h ../app/device/labtool/uilabtooltriggerconfig.h ../app/analyzer/uart/uiuartanalyzer.h ../app/generator/uartgenerator.h ../app/analyzer/uianalyzerconfig.h ../app/analyzer/uart/uiuartanalyzerconfig.h ../app/common/types.h ../app/generator/spigenerator.h ../app/analyzer/i2c/uii2canalyzerconfig.h ../app/analyzer/i2c/uii2canalyzer.h ../app/analyzer/spi/uispianalyzer.h ../app/analyzer/spi/uispianalyzerconfig.h ../app/device/device.h ../app/device/generatordevice.h ../app/device/simulator/simulatorcapturedevice.h ../app/device/simulator/simulatordevice.h ../app/device/labtool/labtoolcapturedevice.h ../app/device/labtool/labtooldevice.h ../app/generator/uidigitalgenerator.h ../app/generator/uianaloggenerator.h ../app/device/simulator/simulatorgeneratordevice.h ../app/device/labtool/labtoolgeneratordevice.h ../app/generator/uigeneratorarea.h ../app/generator/generatorapp.h ../app/generator/digitaldelegate.h ../app/generator/digitalsignals.h ../app/generator/uieditdigital.h ../app/generator/uieditanalog.h ../app/generator/uianalogshape.h ../app/generator/uigeneratorsignaldialog.h ../app/common/stringutil.h ../app/uimainwindow.h ../app/capture/uitimeaxis.h ../app/capture/uisimpleabstractsignal.h ../app/capture/uiselectsignaldialog.h ../app/capture/uiplot.h ../app/capture/uimeasurmentarea.h ../app/capture/uilistspinbox.h ../app/capture/uigrid.h ../app/capture/uidigitaltrigger.h ../app/capture/uidigitalsignal.h ../app/capture/uidigitalgroup.h ../app/capture/uicursorgroup.h ../app/capture/uicursor.h ../app/capture/uicapturearea.h ../app/capture/uianalogtrigger.h ../app/capture/uianalogsignal.h ../app/capture/uianaloggroup.h ../app/capture/uiabstractsignal.h ../app/capture/uiabstractplotitem.h ../app/capture/signalmanager.h ../app/capture/captureapp.h ../app/analyzer/analyzermanager.h ../app/common/configuration.h ../app/capture/cursormanager.h ../app/common/inputhelper.h ../app/device/analogsignal.h ../app/capture/uicaptureexporter.h ../app/device/labtool/labtoolcalibrationwizard.h ../app/device/labtool/labtoolcalibrationwizardintropage.h ../app/device/labtool/labtoolcalibrationwizardconclusionpage.h ../app/device/labtool/labtoolcalibrationwizardanalogout.h ../app/device/labtool/labtoolcalibrationwizardanalogin.h ../app/device/labtool/labtoolcalibrationdata.h ../app/device/digitalsignal.h ../app/device/reconfigurelistener.h ../app/device/selfmixedsignal.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../app/main.cpp ../app/generator/i2cgenerator.cpp ../app/device/devicemanager.cpp ../app/device/capturedevice.cpp ../app/analyzer/uianalyzer.cpp ../app/analyzer/analyzermanager.cpp ../app/device/labtool/labtooldevicetransfer.cpp ../app/device/labtool/labtooldevicecommthread.cpp ../app/device/labtool/labtooldevicecomm.cpp ../app/device/simulator/uisimulatorconfigdialog.cpp ../app/device/labtool/uilabtooltriggerconfig.cpp ../app/analyzer/uart/uiuartanalyzer.cpp ../app/generator/uartgenerator.cpp ../app/analyzer/uianalyzerconfig.cpp ../app/analyzer/uart/uiuartanalyzerconfig.cpp ../app/common/inputhelper.cpp ../app/common/types.cpp ../app/generator/spigenerator.cpp ../app/analyzer/i2c/uii2canalyzerconfig.cpp ../app/analyzer/i2c/uii2canalyzer.cpp ../app/analyzer/spi/uispianalyzer.cpp ../app/analyzer/spi/uispianalyzerconfig.cpp ../app/device/device.cpp ../app/device/generatordevice.cpp ../app/device/simulator/simulatorcapturedevice.cpp ../app/device/simulator/simulatordevice.cpp ../app/device/labtool/labtoolcapturedevice.cpp ../app/device/labtool/labtooldevice.cpp ../app/generator/uidigitalgenerator.cpp ../app/generator/uianaloggenerator.cpp ../app/device/simulator/simulatorgeneratordevice.cpp ../app/device/labtool/labtoolgeneratordevice.cpp ../app/generator/uigeneratorarea.cpp ../app/generator/generatorapp.cpp ../app/generator/digitaldelegate.cpp ../app/generator/digitalsignals.cpp ../app/generator/uieditdigital.cpp ../app/generator/uieditanalog.cpp ../app/generator/uianalogshape.cpp ../app/generator/uigeneratorsignaldialog.cpp ../app/common/stringutil.cpp ../app/uimainwindow.cpp ../app/capture/uitimeaxis.cpp ../app/capture/uisimpleabstractsignal.cpp ../app/capture/uiselectsignaldialog.cpp ../app/capture/uiplot.cpp ../app/capture/uimeasurmentarea.cpp ../app/capture/uilistspinbox.cpp ../app/capture/uigrid.cpp ../app/capture/uidigitaltrigger.cpp ../app/capture/uidigitalsignal.cpp ../app/capture/uidigitalgroup.cpp ../app/capture/uicursorgroup.cpp ../app/capture/uicursor.cpp ../app/capture/uicapturearea.cpp ../app/capture/uianalogtrigger.cpp ../app/capture/uianalogsignal.cpp ../app/capture/uianaloggroup.cpp ../app/capture/uiabstractsignal.cpp ../app/capture/uiabstractplotitem.cpp ../app/capture/signalmanager.cpp ../app/capture/cursormanager.cpp ../app/capture/captureapp.cpp ../app/common/configuration.cpp ../app/device/analogsignal.cpp ../app/capture/uicaptureexporter.cpp ../app/device/labtool/labtoolcalibrationwizard.cpp ../app/device/labtool/labtoolcalibrationwizardintropage.cpp ../app/device/labtool/labtoolcalibrationwizardconclusionpage.cpp ../app/device/labtool/labtoolcalibrationwizardanalogout.cpp ../app/device/labtool/labtoolcalibrationwizardanalogin.cpp ../app/device/labtool/labtoolcalibrationdata.cpp ../app/device/digitalsignal.cpp ../app/device/reconfigurelistener.cpp ../app/device/selfmixedsignal.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../app/generator/i2cgenerator.h ../app/libusbx/include/libusbx-1.0/libusb.h ../app/device/devicemanager.h ../app/device/capturedevice.h ../app/analyzer/uianalyzer.h ../app/device/labtool/labtooldevicetransfer.h ../app/device/labtool/labtooldevicecommthread.h ../app/device/labtool/labtooldevicecomm.h ../app/device/simulator/uisimulatorconfigdialog.h ../app/device/labtool/uilabtooltriggerconfig.h ../app/analyzer/uart/uiuartanalyzer.h ../app/generator/uartgenerator.h ../app/analyzer/uianalyzerconfig.h ../app/analyzer/uart/uiuartanalyzerconfig.h ../app/common/types.h ../app/generator/spigenerator.h ../app/analyzer/i2c/uii2canalyzerconfig.h ../app/analyzer/i2c/uii2canalyzer.h ../app/analyzer/spi/uispianalyzer.h ../app/analyzer/spi/uispianalyzerconfig.h ../app/device/device.h ../app/device/generatordevice.h ../app/device/simulator/simulatorcapturedevice.h ../app/device/simulator/simulatordevice.h ../app/device/labtool/labtoolcapturedevice.h ../app/device/labtool/labtooldevice.h ../app/generator/uidigitalgenerator.h ../app/generator/uianaloggenerator.h ../app/device/simulator/simulatorgeneratordevice.h ../app/device/labtool/labtoolgeneratordevice.h ../app/generator/uigeneratorarea.h ../app/generator/generatorapp.h ../app/generator/digitaldelegate.h ../app/generator/digitalsignals.h ../app/generator/uieditdigital.h ../app/generator/uieditanalog.h ../app/generator/uianalogshape.h ../app/generator/uigeneratorsignaldialog.h ../app/common/stringutil.h ../app/uimainwindow.h ../app/capture/uitimeaxis.h ../app/capture/uisimpleabstractsignal.h ../app/capture/uiselectsignaldialog.h ../app/capture/uiplot.h ../app/capture/uimeasurmentarea.h ../app/capture/uilistspinbox.h ../app/capture/uigrid.h ../app/capture/uidigitaltrigger.h ../app/capture/uidigitalsignal.h ../app/capture/uidigitalgroup.h ../app/capture/uicursorgroup.h ../app/capture/uicursor.h ../app/capture/uicapturearea.h ../app/capture/uianalogtrigger.h ../app/capture/uianalogsignal.h ../app/capture/uianaloggroup.h ../app/capture/uiabstractsignal.h ../app/capture/uiabstractplotitem.h ../app/capture/signalmanager.h ../app/capture/captureapp.h ../app/analyzer/analyzermanager.h ../app/common/configuration.h ../app/capture/cursormanager.h ../app/common/inputhelper.h ../app/device/analogsignal.h ../app/capture/uicaptureexporter.h ../app/device/labtool/labtoolcalibrationwizard.h ../app/device/labtool/labtoolcalibrationwizardintropage.h ../app/device/labtool/labtoolcalibrationwizardconclusionpage.h ../app/device/labtool/labtoolcalibrationwizardanalogout.h ../app/device/labtool/labtoolcalibrationwizardanalogin.h ../app/device/labtool/labtoolcalibrationdata.h ../app/device/digitalsignal.h ../app/device/reconfigurelistener.h ../app/device/selfmixedsignal.h ../app/capture/uiselfmixedtrigger.h ../app/capture/uiselfmixedsignal.h ../app/capture/uiselfmixedgroup.h ../app/device/labtool/traitement.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../app/main.cpp ../app/generator/i2cgenerator.cpp ../app/device/devicemanager.cpp ../app/device/capturedevice.cpp ../app/analyzer/uianalyzer.cpp ../app/analyzer/analyzermanager.cpp ../app/device/labtool/labtooldevicetransfer.cpp ../app/device/labtool/labtooldevicecommthread.cpp ../app/device/labtool/labtooldevicecomm.cpp ../app/device/simulator/uisimulatorconfigdialog.cpp ../app/device/labtool/uilabtooltriggerconfig.cpp ../app/analyzer/uart/uiuartanalyzer.cpp ../app/generator/uartgenerator.cpp ../app/analyzer/uianalyzerconfig.cpp ../app/analyzer/uart/uiuartanalyzerconfig.cpp ../app/common/inputhelper.cpp ../app/common/types.cpp ../app/generator/spigenerator.cpp ../app/analyzer/i2c/uii2canalyzerconfig.cpp ../app/analyzer/i2c/uii2canalyzer.cpp ../app/analyzer/spi/uispianalyzer.cpp ../app/analyzer/spi/uispianalyzerconfig.cpp ../app/device/device.cpp ../app/device/generatordevice.cpp ../app/device/simulator/simulatorcapturedevice.cpp ../app/device/simulator/simulatordevice.cpp ../app/device/labtool/labtoolcapturedevice.cpp ../app/device/labtool/labtooldevice.cpp ../app/generator/uidigitalgenerator.cpp ../app/generator/uianaloggenerator.cpp ../app/device/simulator/simulatorgeneratordevice.cpp ../app/device/labtool/labtoolgeneratordevice.cpp ../app/generator/uigeneratorarea.cpp ../app/generator/generatorapp.cpp ../app/generator/digitaldelegate.cpp ../app/generator/digitalsignals.cpp ../app/generator/uieditdigital.cpp ../app/generator/uieditanalog.cpp ../app/generator/uianalogshape.cpp ../app/generator/uigeneratorsignaldialog.cpp ../app/common/stringutil.cpp ../app/uimainwindow.cpp ../app/capture/uitimeaxis.cpp ../app/capture/uisimpleabstractsignal.cpp ../app/capture/uiselectsignaldialog.cpp ../app/capture/uiplot.cpp ../app/capture/uimeasurmentarea.cpp ../app/capture/uilistspinbox.cpp ../app/capture/uigrid.cpp ../app/capture/uidigitaltrigger.cpp ../app/capture/uidigitalsignal.cpp ../app/capture/uidigitalgroup.cpp ../app/capture/uicursorgroup.cpp ../app/capture/uicursor.cpp ../app/capture/uicapturearea.cpp ../app/capture/uianalogtrigger.cpp ../app/capture/uianalogsignal.cpp ../app/capture/uianaloggroup.cpp ../app/capture/uiabstractsignal.cpp ../app/capture/uiabstractplotitem.cpp ../app/capture/signalmanager.cpp ../app/capture/cursormanager.cpp ../app/capture/captureapp.cpp ../app/common/configuration.cpp ../app/device/analogsignal.cpp ../app/capture/uicaptureexporter.cpp ../app/device/labtool/labtoolcalibrationwizard.cpp ../app/device/labtool/labtoolcalibrationwizardintropage.cpp ../app/device/labtool/labtoolcalibrationwizardconclusionpage.cpp ../app/device/labtool/labtoolcalibrationwizardanalogout.cpp ../app/device/labtool/labtoolcalibrationwizardanalogin.cpp ../app/device/labtool/labtoolcalibrationdata.cpp ../app/device/digitalsignal.cpp ../app/device/reconfigurelistener.cpp ../app/device/selfmixedsignal.cpp ../app/capture/uiselfmixedgroup.cpp ../app/capture/uiselfmixedsignal.cpp ../app/capture/uiselfmixedtrigger.cpp ../app/device/labtool/traitement.cpp $(DISTDIR)/
 
 
 clean:compiler_clean 
@@ -924,30 +1057,33 @@ qrc_icons.cpp: ../app/icons.qrc \
 		../app/resources/16_analog.png \
 		../app/resources/8_configure.png \
 		../app/resources/16_zoom_out.png \
+		../app/resources/16_magic.png \
 		../app/resources/16_digital.png
 	/usr/lib/qt/bin/rcc -name icons ../app/icons.qrc -o qrc_icons.cpp
 
-compiler_moc_header_make_all: moc_i2cgenerator.cpp moc_devicemanager.cpp moc_capturedevice.cpp moc_uianalyzer.cpp moc_labtooldevicecommthread.cpp moc_labtooldevicecomm.cpp moc_uisimulatorconfigdialog.cpp moc_uilabtooltriggerconfig.cpp moc_uiuartanalyzer.cpp moc_uartgenerator.cpp moc_uianalyzerconfig.cpp moc_uiuartanalyzerconfig.cpp moc_spigenerator.cpp moc_uii2canalyzerconfig.cpp moc_uii2canalyzer.cpp moc_uispianalyzer.cpp moc_uispianalyzerconfig.cpp moc_device.cpp moc_generatordevice.cpp moc_simulatorcapturedevice.cpp moc_simulatordevice.cpp moc_labtoolcapturedevice.cpp moc_labtooldevice.cpp moc_uidigitalgenerator.cpp moc_uianaloggenerator.cpp moc_simulatorgeneratordevice.cpp moc_labtoolgeneratordevice.cpp moc_uigeneratorarea.cpp moc_generatorapp.cpp moc_digitaldelegate.cpp moc_digitalsignals.cpp moc_uieditdigital.cpp moc_uieditanalog.cpp moc_uianalogshape.cpp moc_uigeneratorsignaldialog.cpp moc_uimainwindow.cpp moc_uitimeaxis.cpp moc_uisimpleabstractsignal.cpp moc_uiselectsignaldialog.cpp moc_uiplot.cpp moc_uimeasurmentarea.cpp moc_uilistspinbox.cpp moc_uigrid.cpp moc_uidigitaltrigger.cpp moc_uidigitalsignal.cpp moc_uidigitalgroup.cpp moc_uicursorgroup.cpp moc_uicursor.cpp moc_uicapturearea.cpp moc_uianalogtrigger.cpp moc_uianalogsignal.cpp moc_uianaloggroup.cpp moc_uiabstractsignal.cpp moc_uiabstractplotitem.cpp moc_signalmanager.cpp moc_captureapp.cpp moc_uicaptureexporter.cpp moc_labtoolcalibrationwizard.cpp moc_labtoolcalibrationwizardintropage.cpp moc_labtoolcalibrationwizardconclusionpage.cpp moc_labtoolcalibrationwizardanalogout.cpp moc_labtoolcalibrationwizardanalogin.cpp
+compiler_moc_header_make_all: moc_i2cgenerator.cpp moc_devicemanager.cpp moc_capturedevice.cpp moc_uianalyzer.cpp moc_labtooldevicecommthread.cpp moc_labtooldevicecomm.cpp moc_uisimulatorconfigdialog.cpp moc_uilabtooltriggerconfig.cpp moc_uiuartanalyzer.cpp moc_uartgenerator.cpp moc_uianalyzerconfig.cpp moc_uiuartanalyzerconfig.cpp moc_spigenerator.cpp moc_uii2canalyzerconfig.cpp moc_uii2canalyzer.cpp moc_uispianalyzer.cpp moc_uispianalyzerconfig.cpp moc_device.cpp moc_generatordevice.cpp moc_simulatorcapturedevice.cpp moc_simulatordevice.cpp moc_labtoolcapturedevice.cpp moc_labtooldevice.cpp moc_uidigitalgenerator.cpp moc_uianaloggenerator.cpp moc_simulatorgeneratordevice.cpp moc_labtoolgeneratordevice.cpp moc_uigeneratorarea.cpp moc_generatorapp.cpp moc_digitaldelegate.cpp moc_digitalsignals.cpp moc_uieditdigital.cpp moc_uieditanalog.cpp moc_uianalogshape.cpp moc_uigeneratorsignaldialog.cpp moc_uimainwindow.cpp moc_uitimeaxis.cpp moc_uisimpleabstractsignal.cpp moc_uiselectsignaldialog.cpp moc_uiplot.cpp moc_uimeasurmentarea.cpp moc_uilistspinbox.cpp moc_uigrid.cpp moc_uidigitaltrigger.cpp moc_uidigitalsignal.cpp moc_uidigitalgroup.cpp moc_uicursorgroup.cpp moc_uicursor.cpp moc_uicapturearea.cpp moc_uianalogtrigger.cpp moc_uianalogsignal.cpp moc_uianaloggroup.cpp moc_uiabstractsignal.cpp moc_uiabstractplotitem.cpp moc_signalmanager.cpp moc_captureapp.cpp moc_uicaptureexporter.cpp moc_labtoolcalibrationwizard.cpp moc_labtoolcalibrationwizardintropage.cpp moc_labtoolcalibrationwizardconclusionpage.cpp moc_labtoolcalibrationwizardanalogout.cpp moc_labtoolcalibrationwizardanalogin.cpp moc_uiselfmixedtrigger.cpp moc_uiselfmixedsignal.cpp moc_uiselfmixedgroup.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_i2cgenerator.cpp moc_devicemanager.cpp moc_capturedevice.cpp moc_uianalyzer.cpp moc_labtooldevicecommthread.cpp moc_labtooldevicecomm.cpp moc_uisimulatorconfigdialog.cpp moc_uilabtooltriggerconfig.cpp moc_uiuartanalyzer.cpp moc_uartgenerator.cpp moc_uianalyzerconfig.cpp moc_uiuartanalyzerconfig.cpp moc_spigenerator.cpp moc_uii2canalyzerconfig.cpp moc_uii2canalyzer.cpp moc_uispianalyzer.cpp moc_uispianalyzerconfig.cpp moc_device.cpp moc_generatordevice.cpp moc_simulatorcapturedevice.cpp moc_simulatordevice.cpp moc_labtoolcapturedevice.cpp moc_labtooldevice.cpp moc_uidigitalgenerator.cpp moc_uianaloggenerator.cpp moc_simulatorgeneratordevice.cpp moc_labtoolgeneratordevice.cpp moc_uigeneratorarea.cpp moc_generatorapp.cpp moc_digitaldelegate.cpp moc_digitalsignals.cpp moc_uieditdigital.cpp moc_uieditanalog.cpp moc_uianalogshape.cpp moc_uigeneratorsignaldialog.cpp moc_uimainwindow.cpp moc_uitimeaxis.cpp moc_uisimpleabstractsignal.cpp moc_uiselectsignaldialog.cpp moc_uiplot.cpp moc_uimeasurmentarea.cpp moc_uilistspinbox.cpp moc_uigrid.cpp moc_uidigitaltrigger.cpp moc_uidigitalsignal.cpp moc_uidigitalgroup.cpp moc_uicursorgroup.cpp moc_uicursor.cpp moc_uicapturearea.cpp moc_uianalogtrigger.cpp moc_uianalogsignal.cpp moc_uianaloggroup.cpp moc_uiabstractsignal.cpp moc_uiabstractplotitem.cpp moc_signalmanager.cpp moc_captureapp.cpp moc_uicaptureexporter.cpp moc_labtoolcalibrationwizard.cpp moc_labtoolcalibrationwizardintropage.cpp moc_labtoolcalibrationwizardconclusionpage.cpp moc_labtoolcalibrationwizardanalogout.cpp moc_labtoolcalibrationwizardanalogin.cpp
+	-$(DEL_FILE) moc_i2cgenerator.cpp moc_devicemanager.cpp moc_capturedevice.cpp moc_uianalyzer.cpp moc_labtooldevicecommthread.cpp moc_labtooldevicecomm.cpp moc_uisimulatorconfigdialog.cpp moc_uilabtooltriggerconfig.cpp moc_uiuartanalyzer.cpp moc_uartgenerator.cpp moc_uianalyzerconfig.cpp moc_uiuartanalyzerconfig.cpp moc_spigenerator.cpp moc_uii2canalyzerconfig.cpp moc_uii2canalyzer.cpp moc_uispianalyzer.cpp moc_uispianalyzerconfig.cpp moc_device.cpp moc_generatordevice.cpp moc_simulatorcapturedevice.cpp moc_simulatordevice.cpp moc_labtoolcapturedevice.cpp moc_labtooldevice.cpp moc_uidigitalgenerator.cpp moc_uianaloggenerator.cpp moc_simulatorgeneratordevice.cpp moc_labtoolgeneratordevice.cpp moc_uigeneratorarea.cpp moc_generatorapp.cpp moc_digitaldelegate.cpp moc_digitalsignals.cpp moc_uieditdigital.cpp moc_uieditanalog.cpp moc_uianalogshape.cpp moc_uigeneratorsignaldialog.cpp moc_uimainwindow.cpp moc_uitimeaxis.cpp moc_uisimpleabstractsignal.cpp moc_uiselectsignaldialog.cpp moc_uiplot.cpp moc_uimeasurmentarea.cpp moc_uilistspinbox.cpp moc_uigrid.cpp moc_uidigitaltrigger.cpp moc_uidigitalsignal.cpp moc_uidigitalgroup.cpp moc_uicursorgroup.cpp moc_uicursor.cpp moc_uicapturearea.cpp moc_uianalogtrigger.cpp moc_uianalogsignal.cpp moc_uianaloggroup.cpp moc_uiabstractsignal.cpp moc_uiabstractplotitem.cpp moc_signalmanager.cpp moc_captureapp.cpp moc_uicaptureexporter.cpp moc_labtoolcalibrationwizard.cpp moc_labtoolcalibrationwizardintropage.cpp moc_labtoolcalibrationwizardconclusionpage.cpp moc_labtoolcalibrationwizardanalogout.cpp moc_labtoolcalibrationwizardanalogin.cpp moc_uiselfmixedtrigger.cpp moc_uiselfmixedsignal.cpp moc_uiselfmixedgroup.cpp
 moc_i2cgenerator.cpp: ../app/common/types.h \
 		../app/generator/i2cgenerator.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/i2cgenerator.h -o moc_i2cgenerator.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/i2cgenerator.h -o moc_i2cgenerator.cpp
 
 moc_devicemanager.cpp: ../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/device/devicemanager.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/devicemanager.h -o moc_devicemanager.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/devicemanager.h -o moc_devicemanager.cpp
 
 moc_capturedevice.cpp: ../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/capturedevice.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/capturedevice.h -o moc_capturedevice.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/capturedevice.h -o moc_capturedevice.cpp
 
 moc_uianalyzer.cpp: ../app/common/types.h \
 		../app/capture/uisimpleabstractsignal.h \
@@ -955,7 +1091,7 @@ moc_uianalyzer.cpp: ../app/common/types.h \
 		../app/capture/uiabstractplotitem.h \
 		../app/capture/uitimeaxis.h \
 		../app/analyzer/uianalyzer.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/uianalyzer.h -o moc_uianalyzer.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/uianalyzer.h -o moc_uianalyzer.cpp
 
 moc_labtooldevicecommthread.cpp: ../app/device/labtool/labtooldevicecomm.h \
 		../app/device/labtool/labtooldevicecommthread.h \
@@ -963,7 +1099,7 @@ moc_labtooldevicecommthread.cpp: ../app/device/labtool/labtooldevicecomm.h \
 		../app/device/labtool/labtooldevicetransfer.h \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/labtool/labtooldevicecommthread.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtooldevicecommthread.h -o moc_labtooldevicecommthread.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtooldevicecommthread.h -o moc_labtooldevicecommthread.cpp
 
 moc_labtooldevicecomm.cpp: ../app/device/labtool/labtooldevicecommthread.h \
 		../app/device/labtool/labtooldevicecomm.h \
@@ -971,14 +1107,14 @@ moc_labtooldevicecomm.cpp: ../app/device/labtool/labtooldevicecommthread.h \
 		../app/libusbx/include/libusbx-1.0/libusb.h \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/labtool/labtooldevicecomm.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtooldevicecomm.h -o moc_labtooldevicecomm.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtooldevicecomm.h -o moc_labtooldevicecomm.cpp
 
 moc_uisimulatorconfigdialog.cpp: ../app/common/types.h \
 		../app/device/simulator/uisimulatorconfigdialog.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/simulator/uisimulatorconfigdialog.h -o moc_uisimulatorconfigdialog.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/simulator/uisimulatorconfigdialog.h -o moc_uisimulatorconfigdialog.cpp
 
 moc_uilabtooltriggerconfig.cpp: ../app/device/labtool/uilabtooltriggerconfig.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/uilabtooltriggerconfig.h -o moc_uilabtooltriggerconfig.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/uilabtooltriggerconfig.h -o moc_uilabtooltriggerconfig.cpp
 
 moc_uiuartanalyzer.cpp: ../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
@@ -994,12 +1130,14 @@ moc_uiuartanalyzer.cpp: ../app/analyzer/uianalyzer.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uart/uiuartanalyzer.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/uart/uiuartanalyzer.h -o moc_uiuartanalyzer.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/uart/uiuartanalyzer.h -o moc_uiuartanalyzer.cpp
 
 moc_uartgenerator.cpp: ../app/common/types.h \
 		../app/generator/uartgenerator.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uartgenerator.h -o moc_uartgenerator.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uartgenerator.h -o moc_uartgenerator.cpp
 
 moc_uianalyzerconfig.cpp: ../app/common/types.h \
 		../app/analyzer/uianalyzer.h \
@@ -1008,7 +1146,7 @@ moc_uianalyzerconfig.cpp: ../app/common/types.h \
 		../app/capture/uiabstractplotitem.h \
 		../app/capture/uitimeaxis.h \
 		../app/analyzer/uianalyzerconfig.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/uianalyzerconfig.h -o moc_uianalyzerconfig.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/uianalyzerconfig.h -o moc_uianalyzerconfig.cpp
 
 moc_uiuartanalyzerconfig.cpp: ../app/analyzer/uart/uiuartanalyzer.h \
 		../app/analyzer/uianalyzer.h \
@@ -1025,13 +1163,15 @@ moc_uiuartanalyzerconfig.cpp: ../app/analyzer/uart/uiuartanalyzer.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzerconfig.h \
 		../app/analyzer/uart/uiuartanalyzerconfig.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/uart/uiuartanalyzerconfig.h -o moc_uiuartanalyzerconfig.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/uart/uiuartanalyzerconfig.h -o moc_uiuartanalyzerconfig.cpp
 
 moc_spigenerator.cpp: ../app/common/types.h \
 		../app/generator/spigenerator.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/spigenerator.h -o moc_spigenerator.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/spigenerator.h -o moc_spigenerator.cpp
 
 moc_uii2canalyzerconfig.cpp: ../app/analyzer/i2c/uii2canalyzer.h \
 		../app/analyzer/uianalyzer.h \
@@ -1048,9 +1188,11 @@ moc_uii2canalyzerconfig.cpp: ../app/analyzer/i2c/uii2canalyzer.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzerconfig.h \
 		../app/analyzer/i2c/uii2canalyzerconfig.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/i2c/uii2canalyzerconfig.h -o moc_uii2canalyzerconfig.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/i2c/uii2canalyzerconfig.h -o moc_uii2canalyzerconfig.cpp
 
 moc_uii2canalyzer.cpp: ../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
@@ -1066,8 +1208,10 @@ moc_uii2canalyzer.cpp: ../app/analyzer/uianalyzer.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/i2c/uii2canalyzer.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/i2c/uii2canalyzer.h -o moc_uii2canalyzer.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/i2c/uii2canalyzer.h -o moc_uii2canalyzer.cpp
 
 moc_uispianalyzer.cpp: ../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
@@ -1083,8 +1227,10 @@ moc_uispianalyzer.cpp: ../app/analyzer/uianalyzer.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/spi/uispianalyzer.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/spi/uispianalyzer.h -o moc_uispianalyzer.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/spi/uispianalyzer.h -o moc_uispianalyzer.cpp
 
 moc_uispianalyzerconfig.cpp: ../app/analyzer/uianalyzerconfig.h \
 		../app/common/types.h \
@@ -1101,49 +1247,55 @@ moc_uispianalyzerconfig.cpp: ../app/analyzer/uianalyzerconfig.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/spi/uispianalyzerconfig.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/spi/uispianalyzerconfig.h -o moc_uispianalyzerconfig.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/analyzer/spi/uispianalyzerconfig.h -o moc_uispianalyzerconfig.cpp
 
 moc_device.cpp: ../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/device/device.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/device.h -o moc_device.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/device.h -o moc_device.cpp
 
 moc_generatordevice.cpp: ../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
 		../app/device/generatordevice.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/generatordevice.h -o moc_generatordevice.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/generatordevice.h -o moc_generatordevice.cpp
 
 moc_simulatorcapturedevice.cpp: ../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/simulator/uisimulatorconfigdialog.h \
 		../app/common/types.h \
 		../app/device/simulator/simulatorcapturedevice.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/simulator/simulatorcapturedevice.h -o moc_simulatorcapturedevice.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/simulator/simulatorcapturedevice.h -o moc_simulatorcapturedevice.cpp
 
 moc_simulatordevice.cpp: ../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/device/simulator/simulatorcapturedevice.h \
 		../app/device/simulator/uisimulatorconfigdialog.h \
 		../app/common/types.h \
 		../app/device/simulator/simulatorgeneratordevice.h \
 		../app/device/simulator/simulatordevice.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/simulator/simulatordevice.h -o moc_simulatordevice.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/simulator/simulatordevice.h -o moc_simulatordevice.cpp
 
 moc_labtoolcapturedevice.cpp: ../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/labtool/labtooldevicecomm.h \
 		../app/device/labtool/labtooldevicecommthread.h \
 		../app/libusbx/include/libusbx-1.0/libusb.h \
@@ -1151,13 +1303,14 @@ moc_labtoolcapturedevice.cpp: ../app/device/capturedevice.h \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/labtool/uilabtooltriggerconfig.h \
 		../app/device/labtool/labtoolcapturedevice.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcapturedevice.h -o moc_labtoolcapturedevice.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcapturedevice.h -o moc_labtoolcapturedevice.cpp
 
 moc_labtooldevice.cpp: ../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/device/labtool/labtoolcapturedevice.h \
 		../app/device/labtool/labtooldevicecomm.h \
@@ -1168,27 +1321,27 @@ moc_labtooldevice.cpp: ../app/device/device.h \
 		../app/device/labtool/uilabtooltriggerconfig.h \
 		../app/device/labtool/labtoolgeneratordevice.h \
 		../app/device/labtool/labtooldevice.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtooldevice.h -o moc_labtooldevice.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtooldevice.h -o moc_labtooldevice.cpp
 
 moc_uidigitalgenerator.cpp: ../app/generator/digitalsignals.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/generator/uidigitalgenerator.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uidigitalgenerator.h -o moc_uidigitalgenerator.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uidigitalgenerator.h -o moc_uidigitalgenerator.cpp
 
 moc_uianaloggenerator.cpp: ../app/device/generatordevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
 		../app/generator/uianaloggenerator.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uianaloggenerator.h -o moc_uianaloggenerator.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uianaloggenerator.h -o moc_uianaloggenerator.cpp
 
 moc_simulatorgeneratordevice.cpp: ../app/device/generatordevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
 		../app/device/simulator/simulatorgeneratordevice.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/simulator/simulatorgeneratordevice.h -o moc_simulatorgeneratordevice.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/simulator/simulatorgeneratordevice.h -o moc_simulatorgeneratordevice.cpp
 
 moc_labtoolgeneratordevice.cpp: ../app/device/generatordevice.h \
 		../app/device/digitalsignal.h \
@@ -1200,7 +1353,7 @@ moc_labtoolgeneratordevice.cpp: ../app/device/generatordevice.h \
 		../app/device/labtool/labtooldevicetransfer.h \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/labtool/labtoolgeneratordevice.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolgeneratordevice.h -o moc_labtoolgeneratordevice.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolgeneratordevice.h -o moc_labtoolgeneratordevice.cpp
 
 moc_uigeneratorarea.cpp: ../app/generator/digitalsignals.h \
 		../app/device/digitalsignal.h \
@@ -1210,7 +1363,7 @@ moc_uigeneratorarea.cpp: ../app/generator/digitalsignals.h \
 		../app/device/generatordevice.h \
 		../app/device/analogsignal.h \
 		../app/generator/uigeneratorarea.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uigeneratorarea.h -o moc_uigeneratorarea.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uigeneratorarea.h -o moc_uigeneratorarea.cpp
 
 moc_generatorapp.cpp: ../app/generator/uigeneratorarea.h \
 		../app/generator/digitalsignals.h \
@@ -1222,41 +1375,43 @@ moc_generatorapp.cpp: ../app/generator/uigeneratorarea.h \
 		../app/device/analogsignal.h \
 		../app/device/device.h \
 		../app/device/capturedevice.h \
+		../app/device/selfmixedsignal.h \
 		../app/generator/generatorapp.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/generatorapp.h -o moc_generatorapp.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/generatorapp.h -o moc_generatorapp.cpp
 
 moc_digitaldelegate.cpp: ../app/generator/digitaldelegate.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/digitaldelegate.h -o moc_digitaldelegate.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/digitaldelegate.h -o moc_digitaldelegate.cpp
 
 moc_digitalsignals.cpp: ../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/generator/digitalsignals.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/digitalsignals.h -o moc_digitalsignals.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/digitalsignals.h -o moc_digitalsignals.cpp
 
 moc_uieditdigital.cpp: ../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/generator/uieditdigital.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uieditdigital.h -o moc_uieditdigital.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uieditdigital.h -o moc_uieditdigital.cpp
 
 moc_uieditanalog.cpp: ../app/device/analogsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/generator/uianalogshape.h \
 		../app/generator/uieditanalog.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uieditanalog.h -o moc_uieditanalog.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uieditanalog.h -o moc_uieditanalog.cpp
 
 moc_uianalogshape.cpp: ../app/device/analogsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/generator/uianalogshape.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uianalogshape.h -o moc_uianalogshape.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uianalogshape.h -o moc_uianalogshape.cpp
 
 moc_uigeneratorsignaldialog.cpp: ../app/generator/uigeneratorsignaldialog.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uigeneratorsignaldialog.h -o moc_uigeneratorsignaldialog.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/generator/uigeneratorsignaldialog.h -o moc_uigeneratorsignaldialog.cpp
 
 moc_uimainwindow.cpp: ../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/generator/uigeneratorarea.h \
 		../app/generator/digitalsignals.h \
@@ -1276,27 +1431,29 @@ moc_uimainwindow.cpp: ../app/device/device.h \
 		../app/capture/uisimpleabstractsignal.h \
 		../app/capture/uidigitaltrigger.h \
 		../app/capture/uianalogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uianaloggroup.h \
+		../app/capture/uiselfmixedgroup.h \
 		../app/uimainwindow.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/uimainwindow.h -o moc_uimainwindow.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/uimainwindow.h -o moc_uimainwindow.cpp
 
 moc_uitimeaxis.cpp: ../app/capture/uiabstractplotitem.h \
 		../app/capture/uitimeaxis.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uitimeaxis.h -o moc_uitimeaxis.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uitimeaxis.h -o moc_uitimeaxis.cpp
 
 moc_uisimpleabstractsignal.cpp: ../app/capture/uiabstractsignal.h \
 		../app/capture/uiabstractplotitem.h \
 		../app/capture/uitimeaxis.h \
 		../app/capture/uisimpleabstractsignal.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uisimpleabstractsignal.h -o moc_uisimpleabstractsignal.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uisimpleabstractsignal.h -o moc_uisimpleabstractsignal.cpp
 
 moc_uiselectsignaldialog.cpp: ../app/capture/uiabstractsignal.h \
 		../app/capture/uiabstractplotitem.h \
 		../app/capture/uitimeaxis.h \
 		../app/capture/uiselectsignaldialog.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiselectsignaldialog.h -o moc_uiselectsignaldialog.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiselectsignaldialog.h -o moc_uiselectsignaldialog.cpp
 
 moc_uiplot.cpp: ../app/capture/uigrid.h \
 		../app/capture/uiabstractplotitem.h \
@@ -1311,26 +1468,28 @@ moc_uiplot.cpp: ../app/capture/uigrid.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uiplot.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiplot.h -o moc_uiplot.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiplot.h -o moc_uiplot.cpp
 
 moc_uimeasurmentarea.cpp: ../app/capture/uimeasurmentarea.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uimeasurmentarea.h -o moc_uimeasurmentarea.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uimeasurmentarea.h -o moc_uimeasurmentarea.cpp
 
 moc_uilistspinbox.cpp: ../app/capture/uilistspinbox.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uilistspinbox.h -o moc_uilistspinbox.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uilistspinbox.h -o moc_uilistspinbox.cpp
 
 moc_uigrid.cpp: ../app/capture/uiabstractplotitem.h \
 		../app/capture/uitimeaxis.h \
 		../app/capture/uigrid.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uigrid.h -o moc_uigrid.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uigrid.h -o moc_uigrid.cpp
 
 moc_uidigitaltrigger.cpp: ../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uidigitaltrigger.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uidigitaltrigger.h -o moc_uidigitaltrigger.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uidigitaltrigger.h -o moc_uidigitaltrigger.cpp
 
 moc_uidigitalsignal.cpp: ../app/capture/uisimpleabstractsignal.h \
 		../app/capture/uiabstractsignal.h \
@@ -1340,10 +1499,10 @@ moc_uidigitalsignal.cpp: ../app/capture/uisimpleabstractsignal.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uidigitalsignal.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uidigitalsignal.h -o moc_uidigitalsignal.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uidigitalsignal.h -o moc_uidigitalsignal.cpp
 
 moc_uidigitalgroup.cpp: ../app/capture/uidigitalgroup.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uidigitalgroup.h -o moc_uidigitalgroup.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uidigitalgroup.h -o moc_uidigitalgroup.cpp
 
 moc_uicursorgroup.cpp: ../app/capture/uicursor.h \
 		../app/capture/uiabstractplotitem.h \
@@ -1357,10 +1516,12 @@ moc_uicursorgroup.cpp: ../app/capture/uicursor.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uicursorgroup.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uicursorgroup.h -o moc_uicursorgroup.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uicursorgroup.h -o moc_uicursorgroup.cpp
 
 moc_uicursor.cpp: ../app/capture/uiabstractplotitem.h \
 		../app/capture/uitimeaxis.h \
@@ -1373,10 +1534,12 @@ moc_uicursor.cpp: ../app/capture/uiabstractplotitem.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uicursor.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uicursor.h -o moc_uicursor.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uicursor.h -o moc_uicursor.cpp
 
 moc_uicapturearea.cpp: ../app/capture/uiplot.h \
 		../app/capture/uigrid.h \
@@ -1392,16 +1555,19 @@ moc_uicapturearea.cpp: ../app/capture/uiplot.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uianaloggroup.h \
+		../app/capture/uiselfmixedgroup.h \
 		../app/capture/uicapturearea.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uicapturearea.h -o moc_uicapturearea.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uicapturearea.h -o moc_uicapturearea.cpp
 
 moc_uianalogtrigger.cpp: ../app/device/analogsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogtrigger.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uianalogtrigger.h -o moc_uianalogtrigger.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uianalogtrigger.h -o moc_uianalogtrigger.cpp
 
 moc_uianalogsignal.cpp: ../app/capture/uiabstractsignal.h \
 		../app/capture/uiabstractplotitem.h \
@@ -1409,7 +1575,7 @@ moc_uianalogsignal.cpp: ../app/capture/uiabstractsignal.h \
 		../app/device/analogsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uianalogsignal.h -o moc_uianalogsignal.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uianalogsignal.h -o moc_uianalogsignal.cpp
 
 moc_uianaloggroup.cpp: ../app/capture/uianalogsignal.h \
 		../app/capture/uiabstractsignal.h \
@@ -1418,15 +1584,15 @@ moc_uianaloggroup.cpp: ../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianaloggroup.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uianaloggroup.h -o moc_uianaloggroup.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uianaloggroup.h -o moc_uianaloggroup.cpp
 
 moc_uiabstractsignal.cpp: ../app/capture/uiabstractplotitem.h \
 		../app/capture/uitimeaxis.h \
 		../app/capture/uiabstractsignal.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiabstractsignal.h -o moc_uiabstractsignal.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiabstractsignal.h -o moc_uiabstractsignal.cpp
 
 moc_uiabstractplotitem.cpp: ../app/capture/uiabstractplotitem.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiabstractplotitem.h -o moc_uiabstractplotitem.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiabstractplotitem.h -o moc_uiabstractplotitem.cpp
 
 moc_signalmanager.cpp: ../app/capture/uiabstractsignal.h \
 		../app/capture/uiabstractplotitem.h \
@@ -1438,10 +1604,12 @@ moc_signalmanager.cpp: ../app/capture/uiabstractsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/signalmanager.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/signalmanager.h -o moc_signalmanager.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/signalmanager.h -o moc_signalmanager.cpp
 
 moc_captureapp.cpp: ../app/capture/uicapturearea.h \
 		../app/capture/uiplot.h \
@@ -1458,21 +1626,25 @@ moc_captureapp.cpp: ../app/capture/uicapturearea.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uianaloggroup.h \
+		../app/capture/uiselfmixedgroup.h \
 		../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/generatordevice.h \
 		../app/capture/captureapp.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/captureapp.h -o moc_captureapp.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/captureapp.h -o moc_captureapp.cpp
 
 moc_uicaptureexporter.cpp: ../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/capture/uicaptureexporter.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uicaptureexporter.h -o moc_uicaptureexporter.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uicaptureexporter.h -o moc_uicaptureexporter.cpp
 
 moc_labtoolcalibrationwizard.cpp: ../app/device/labtool/labtooldevicecomm.h \
 		../app/device/labtool/labtooldevicecommthread.h \
@@ -1480,13 +1652,13 @@ moc_labtoolcalibrationwizard.cpp: ../app/device/labtool/labtooldevicecomm.h \
 		../app/device/labtool/labtooldevicetransfer.h \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/labtool/labtoolcalibrationwizard.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizard.h -o moc_labtoolcalibrationwizard.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizard.h -o moc_labtoolcalibrationwizard.cpp
 
 moc_labtoolcalibrationwizardintropage.cpp: ../app/device/labtool/labtoolcalibrationwizardintropage.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizardintropage.h -o moc_labtoolcalibrationwizardintropage.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizardintropage.h -o moc_labtoolcalibrationwizardintropage.cpp
 
 moc_labtoolcalibrationwizardconclusionpage.cpp: ../app/device/labtool/labtoolcalibrationwizardconclusionpage.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizardconclusionpage.h -o moc_labtoolcalibrationwizardconclusionpage.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizardconclusionpage.h -o moc_labtoolcalibrationwizardconclusionpage.cpp
 
 moc_labtoolcalibrationwizardanalogout.cpp: ../app/device/labtool/labtooldevicecomm.h \
 		../app/device/labtool/labtooldevicecommthread.h \
@@ -1494,7 +1666,7 @@ moc_labtoolcalibrationwizardanalogout.cpp: ../app/device/labtool/labtooldeviceco
 		../app/device/labtool/labtooldevicetransfer.h \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/labtool/labtoolcalibrationwizardanalogout.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizardanalogout.h -o moc_labtoolcalibrationwizardanalogout.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizardanalogout.h -o moc_labtoolcalibrationwizardanalogout.cpp
 
 moc_labtoolcalibrationwizardanalogin.cpp: ../app/device/labtool/labtooldevicecomm.h \
 		../app/device/labtool/labtooldevicecommthread.h \
@@ -1502,7 +1674,29 @@ moc_labtoolcalibrationwizardanalogin.cpp: ../app/device/labtool/labtooldevicecom
 		../app/device/labtool/labtooldevicetransfer.h \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/labtool/labtoolcalibrationwizardanalogin.h
-	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app -I/home/archi/liquid_lense_controller/labtool/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizardanalogin.h -o moc_labtoolcalibrationwizardanalogin.cpp
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/device/labtool/labtoolcalibrationwizardanalogin.h -o moc_labtoolcalibrationwizardanalogin.cpp
+
+moc_uiselfmixedtrigger.cpp: ../app/device/selfmixedsignal.h \
+		../app/device/reconfigurelistener.h \
+		../app/capture/uiselfmixedtrigger.h
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiselfmixedtrigger.h -o moc_uiselfmixedtrigger.cpp
+
+moc_uiselfmixedsignal.cpp: ../app/capture/uiabstractsignal.h \
+		../app/capture/uiabstractplotitem.h \
+		../app/capture/uitimeaxis.h \
+		../app/device/selfmixedsignal.h \
+		../app/device/reconfigurelistener.h \
+		../app/capture/uiselfmixedsignal.h
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiselfmixedsignal.h -o moc_uiselfmixedsignal.cpp
+
+moc_uiselfmixedgroup.cpp: ../app/capture/uiselfmixedsignal.h \
+		../app/capture/uiabstractsignal.h \
+		../app/capture/uiabstractplotitem.h \
+		../app/capture/uitimeaxis.h \
+		../app/device/selfmixedsignal.h \
+		../app/device/reconfigurelistener.h \
+		../app/capture/uiselfmixedgroup.h
+	/usr/lib/qt/bin/moc $(DEFINES) -I/usr/lib/qt/mkspecs/linux-g++ -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app -I/home/archi/Documents/Liqui_lense/app/libusbx/MS32/dll -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/5.1.0 -I/usr/include/c++/5.1.0/x86_64-unknown-linux-gnu -I/usr/include/c++/5.1.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/5.1.0/include-fixed -I/usr/include ../app/capture/uiselfmixedgroup.h -o moc_uiselfmixedgroup.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1524,6 +1718,7 @@ main.o: ../app/main.cpp ../app/uimainwindow.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/generator/uigeneratorarea.h \
 		../app/generator/digitalsignals.h \
@@ -1543,9 +1738,11 @@ main.o: ../app/main.cpp ../app/uimainwindow.h \
 		../app/capture/uisimpleabstractsignal.h \
 		../app/capture/uidigitaltrigger.h \
 		../app/capture/uianalogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
-		../app/capture/uianaloggroup.h
+		../app/capture/uianaloggroup.h \
+		../app/capture/uiselfmixedgroup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../app/main.cpp
 
 i2cgenerator.o: ../app/generator/i2cgenerator.cpp ../app/generator/i2cgenerator.h \
@@ -1558,6 +1755,7 @@ devicemanager.o: ../app/device/devicemanager.cpp ../app/device/devicemanager.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/device/simulator/simulatordevice.h \
 		../app/device/simulator/simulatorcapturedevice.h \
@@ -1578,7 +1776,8 @@ devicemanager.o: ../app/device/devicemanager.cpp ../app/device/devicemanager.h \
 capturedevice.o: ../app/device/capturedevice.cpp ../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
-		../app/device/analogsignal.h
+		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o capturedevice.o ../app/device/capturedevice.cpp
 
 uianalyzer.o: ../app/analyzer/uianalyzer.cpp ../app/analyzer/uianalyzer.h \
@@ -1605,6 +1804,8 @@ analyzermanager.o: ../app/analyzer/analyzermanager.cpp ../app/analyzer/analyzerm
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uart/uiuartanalyzer.h \
 		../app/analyzer/spi/uispianalyzer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o analyzermanager.o ../app/analyzer/analyzermanager.cpp
@@ -1653,6 +1854,8 @@ uiuartanalyzer.o: ../app/analyzer/uart/uiuartanalyzer.cpp ../app/analyzer/uart/u
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uart/uiuartanalyzerconfig.h \
 		../app/analyzer/uianalyzerconfig.h \
 		../app/device/devicemanager.h \
@@ -1692,6 +1895,8 @@ uiuartanalyzerconfig.o: ../app/analyzer/uart/uiuartanalyzerconfig.cpp ../app/ana
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzerconfig.h \
 		../app/common/inputhelper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uiuartanalyzerconfig.o ../app/analyzer/uart/uiuartanalyzerconfig.cpp
@@ -1704,6 +1909,7 @@ inputhelper.o: ../app/common/inputhelper.cpp ../app/common/inputhelper.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/capture/cursormanager.h \
 		../app/capture/uicursor.h \
@@ -1715,6 +1921,7 @@ inputhelper.o: ../app/common/inputhelper.cpp ../app/common/inputhelper.h \
 		../app/capture/uisimpleabstractsignal.h \
 		../app/capture/uidigitaltrigger.h \
 		../app/capture/uianalogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
 		../app/analyzer/uianalyzer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o inputhelper.o ../app/common/inputhelper.cpp
 
@@ -1741,6 +1948,8 @@ uii2canalyzerconfig.o: ../app/analyzer/i2c/uii2canalyzerconfig.cpp ../app/analyz
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzerconfig.h \
 		../app/common/inputhelper.h \
 		../app/device/devicemanager.h \
@@ -1764,6 +1973,8 @@ uii2canalyzer.o: ../app/analyzer/i2c/uii2canalyzer.cpp ../app/analyzer/i2c/uii2c
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/i2c/uii2canalyzerconfig.h \
 		../app/analyzer/uianalyzerconfig.h \
 		../app/common/configuration.h \
@@ -1789,6 +2000,8 @@ uispianalyzer.o: ../app/analyzer/spi/uispianalyzer.cpp ../app/analyzer/spi/uispi
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/spi/uispianalyzerconfig.h \
 		../app/analyzer/uianalyzerconfig.h \
 		../app/common/configuration.h \
@@ -1815,6 +2028,8 @@ uispianalyzerconfig.o: ../app/analyzer/spi/uispianalyzerconfig.cpp ../app/analyz
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/common/inputhelper.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uispianalyzerconfig.o ../app/analyzer/spi/uispianalyzerconfig.cpp
 
@@ -1823,6 +2038,7 @@ device.o: ../app/device/device.cpp ../app/device/device.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o device.o ../app/device/device.cpp
 
@@ -1837,6 +2053,7 @@ simulatorcapturedevice.o: ../app/device/simulator/simulatorcapturedevice.cpp ../
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/simulator/uisimulatorconfigdialog.h \
 		../app/common/types.h \
 		../app/generator/i2cgenerator.h \
@@ -1850,6 +2067,7 @@ simulatordevice.o: ../app/device/simulator/simulatordevice.cpp ../app/device/sim
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/device/simulator/simulatorcapturedevice.h \
 		../app/device/simulator/uisimulatorconfigdialog.h \
@@ -1862,13 +2080,15 @@ labtoolcapturedevice.o: ../app/device/labtool/labtoolcapturedevice.cpp ../app/de
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/labtool/labtooldevicecomm.h \
 		../app/device/labtool/labtooldevicecommthread.h \
 		../app/libusbx/include/libusbx-1.0/libusb.h \
 		../app/device/labtool/labtooldevicetransfer.h \
 		../app/device/labtool/labtoolcalibrationdata.h \
 		../app/device/labtool/uilabtooltriggerconfig.h \
-		../app/device/labtool/labtoolcalibrationwizard.h
+		../app/device/labtool/labtoolcalibrationwizard.h \
+		../app/device/labtool/traitement.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o labtoolcapturedevice.o ../app/device/labtool/labtoolcapturedevice.cpp
 
 labtooldevice.o: ../app/device/labtool/labtooldevice.cpp ../app/device/labtool/labtooldevice.h \
@@ -1877,6 +2097,7 @@ labtooldevice.o: ../app/device/labtool/labtooldevice.cpp ../app/device/labtool/l
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/device/labtool/labtoolcapturedevice.h \
 		../app/device/labtool/labtooldevicecomm.h \
@@ -1898,6 +2119,7 @@ uidigitalgenerator.o: ../app/generator/uidigitalgenerator.cpp ../app/generator/u
 		../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/common/stringutil.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uidigitalgenerator.o ../app/generator/uidigitalgenerator.cpp
@@ -1912,7 +2134,8 @@ uianaloggenerator.o: ../app/generator/uianaloggenerator.cpp ../app/generator/uia
 		../app/generator/uigeneratorsignaldialog.h \
 		../app/device/devicemanager.h \
 		../app/device/device.h \
-		../app/device/capturedevice.h
+		../app/device/capturedevice.h \
+		../app/device/selfmixedsignal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uianaloggenerator.o ../app/generator/uianaloggenerator.cpp
 
 simulatorgeneratordevice.o: ../app/device/simulator/simulatorgeneratordevice.cpp ../app/device/simulator/simulatorgeneratordevice.h \
@@ -1944,7 +2167,8 @@ uigeneratorarea.o: ../app/generator/uigeneratorarea.cpp ../app/generator/uigener
 		../app/device/analogsignal.h \
 		../app/device/devicemanager.h \
 		../app/device/device.h \
-		../app/device/capturedevice.h
+		../app/device/capturedevice.h \
+		../app/device/selfmixedsignal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uigeneratorarea.o ../app/generator/uigeneratorarea.cpp
 
 generatorapp.o: ../app/generator/generatorapp.cpp ../app/generator/generatorapp.h \
@@ -1958,6 +2182,7 @@ generatorapp.o: ../app/generator/generatorapp.cpp ../app/generator/generatorapp.
 		../app/device/analogsignal.h \
 		../app/device/device.h \
 		../app/device/capturedevice.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/devicemanager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o generatorapp.o ../app/generator/generatorapp.cpp
 
@@ -1975,6 +2200,7 @@ digitalsignals.o: ../app/generator/digitalsignals.cpp ../app/generator/digitalsi
 		../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o digitalsignals.o ../app/generator/digitalsignals.cpp
 
@@ -1992,6 +2218,7 @@ uieditanalog.o: ../app/generator/uieditanalog.cpp ../app/generator/uieditanalog.
 		../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uieditanalog.o ../app/generator/uieditanalog.cpp
 
@@ -2013,6 +2240,7 @@ uimainwindow.o: ../app/uimainwindow.cpp ../app/uimainwindow.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/generator/uigeneratorarea.h \
 		../app/generator/digitalsignals.h \
@@ -2032,9 +2260,11 @@ uimainwindow.o: ../app/uimainwindow.cpp ../app/uimainwindow.h \
 		../app/capture/uisimpleabstractsignal.h \
 		../app/capture/uidigitaltrigger.h \
 		../app/capture/uianalogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uianaloggroup.h \
+		../app/capture/uiselfmixedgroup.h \
 		../app/common/configuration.h \
 		../app/device/devicemanager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uimainwindow.o ../app/uimainwindow.cpp
@@ -2048,6 +2278,7 @@ uitimeaxis.o: ../app/capture/uitimeaxis.cpp ../app/capture/uitimeaxis.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uitimeaxis.o ../app/capture/uitimeaxis.cpp
 
@@ -2069,6 +2300,8 @@ uiselectsignaldialog.o: ../app/capture/uiselectsignaldialog.cpp ../app/capture/u
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/common/configuration.h \
@@ -2093,6 +2326,8 @@ uiplot.o: ../app/capture/uiplot.cpp ../app/capture/uiplot.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/cursormanager.h \
@@ -2133,6 +2368,7 @@ uidigitalsignal.o: ../app/capture/uidigitalsignal.cpp ../app/capture/uidigitalsi
 		../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uidigitalsignal.o ../app/capture/uidigitalsignal.cpp
 
@@ -2153,6 +2389,8 @@ uicursorgroup.o: ../app/capture/uicursorgroup.cpp ../app/capture/uicursorgroup.h
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/common/stringutil.h \
@@ -2174,6 +2412,8 @@ uicursor.o: ../app/capture/uicursor.cpp ../app/capture/uicursor.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/common/configuration.h \
@@ -2198,9 +2438,12 @@ uicapturearea.o: ../app/capture/uicapturearea.cpp ../app/capture/uicapturearea.h
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uianaloggroup.h \
+		../app/capture/uiselfmixedgroup.h \
 		../app/capture/uimeasurmentarea.h \
 		../app/capture/uicursorgroup.h \
 		../app/capture/uidigitalgroup.h \
@@ -2227,6 +2470,7 @@ uianalogsignal.o: ../app/capture/uianalogsignal.cpp ../app/capture/uianalogsigna
 		../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/device/generatordevice.h \
 		../app/capture/uilistspinbox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uianalogsignal.o ../app/capture/uianalogsignal.cpp
@@ -2259,6 +2503,8 @@ signalmanager.o: ../app/capture/signalmanager.cpp ../app/capture/signalmanager.h
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/analyzer/analyzermanager.h \
@@ -2281,6 +2527,8 @@ cursormanager.o: ../app/capture/cursormanager.cpp ../app/capture/cursormanager.h
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cursormanager.o ../app/capture/cursormanager.cpp
@@ -2301,9 +2549,12 @@ captureapp.o: ../app/capture/captureapp.cpp ../app/capture/captureapp.h \
 		../app/device/reconfigurelistener.h \
 		../app/capture/uianalogsignal.h \
 		../app/device/analogsignal.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/device/selfmixedsignal.h \
 		../app/analyzer/uianalyzer.h \
 		../app/common/types.h \
 		../app/capture/uianaloggroup.h \
+		../app/capture/uiselfmixedgroup.h \
 		../app/device/device.h \
 		../app/device/capturedevice.h \
 		../app/device/generatordevice.h \
@@ -2327,7 +2578,8 @@ uicaptureexporter.o: ../app/capture/uicaptureexporter.cpp ../app/capture/uicaptu
 		../app/device/capturedevice.h \
 		../app/device/digitalsignal.h \
 		../app/device/reconfigurelistener.h \
-		../app/device/analogsignal.h
+		../app/device/analogsignal.h \
+		../app/device/selfmixedsignal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uicaptureexporter.o ../app/capture/uicaptureexporter.cpp
 
 labtoolcalibrationwizard.o: ../app/device/labtool/labtoolcalibrationwizard.cpp ../app/device/labtool/labtoolcalibrationwizard.h \
@@ -2380,6 +2632,40 @@ reconfigurelistener.o: ../app/device/reconfigurelistener.cpp ../app/device/recon
 selfmixedsignal.o: ../app/device/selfmixedsignal.cpp ../app/device/selfmixedsignal.h \
 		../app/device/reconfigurelistener.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o selfmixedsignal.o ../app/device/selfmixedsignal.cpp
+
+uiselfmixedgroup.o: ../app/capture/uiselfmixedgroup.cpp ../app/capture/uiselfmixedgroup.h \
+		../app/capture/uiselfmixedsignal.h \
+		../app/capture/uiabstractsignal.h \
+		../app/capture/uiabstractplotitem.h \
+		../app/capture/uitimeaxis.h \
+		../app/device/selfmixedsignal.h \
+		../app/device/reconfigurelistener.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uiselfmixedgroup.o ../app/capture/uiselfmixedgroup.cpp
+
+uiselfmixedsignal.o: ../app/capture/uiselfmixedsignal.cpp ../app/capture/uiselfmixedsignal.h \
+		../app/capture/uiabstractsignal.h \
+		../app/capture/uiabstractplotitem.h \
+		../app/capture/uitimeaxis.h \
+		../app/device/selfmixedsignal.h \
+		../app/device/reconfigurelistener.h \
+		../app/common/configuration.h \
+		../app/capture/uiselfmixedtrigger.h \
+		../app/device/devicemanager.h \
+		../app/device/device.h \
+		../app/device/capturedevice.h \
+		../app/device/digitalsignal.h \
+		../app/device/analogsignal.h \
+		../app/device/generatordevice.h \
+		../app/capture/uilistspinbox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uiselfmixedsignal.o ../app/capture/uiselfmixedsignal.cpp
+
+uiselfmixedtrigger.o: ../app/capture/uiselfmixedtrigger.cpp ../app/capture/uiselfmixedtrigger.h \
+		../app/device/selfmixedsignal.h \
+		../app/device/reconfigurelistener.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o uiselfmixedtrigger.o ../app/capture/uiselfmixedtrigger.cpp
+
+traitement.o: ../app/device/labtool/traitement.cpp ../app/device/labtool/traitement.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o traitement.o ../app/device/labtool/traitement.cpp
 
 qrc_icons.o: qrc_icons.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_icons.o qrc_icons.cpp
@@ -2569,6 +2855,15 @@ moc_labtoolcalibrationwizardanalogout.o: moc_labtoolcalibrationwizardanalogout.c
 
 moc_labtoolcalibrationwizardanalogin.o: moc_labtoolcalibrationwizardanalogin.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_labtoolcalibrationwizardanalogin.o moc_labtoolcalibrationwizardanalogin.cpp
+
+moc_uiselfmixedtrigger.o: moc_uiselfmixedtrigger.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiselfmixedtrigger.o moc_uiselfmixedtrigger.cpp
+
+moc_uiselfmixedsignal.o: moc_uiselfmixedsignal.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiselfmixedsignal.o moc_uiselfmixedsignal.cpp
+
+moc_uiselfmixedgroup.o: moc_uiselfmixedgroup.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_uiselfmixedgroup.o moc_uiselfmixedgroup.cpp
 
 ####### Install
 

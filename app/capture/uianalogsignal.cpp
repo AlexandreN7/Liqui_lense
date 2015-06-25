@@ -1193,9 +1193,7 @@ void UiAnalogSignal::paintTriggerLevel(QPainter* painter)
 
             break;
         }
-
     }
-
     painter->restore();
 }
 
@@ -1227,8 +1225,8 @@ void UiAnalogSignal::doLayout()
         wHeight += p->minimumHeight();
     }
 
-    if (wHeight < 200) {
-        wHeight = 200;
+    if (wHeight < 400) { //200 initially
+        wHeight = 400;
     }
 
     int areaHeight = 0;
