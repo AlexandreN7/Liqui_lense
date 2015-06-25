@@ -100,13 +100,13 @@ UiCaptureArea::UiCaptureArea(SignalManager *signalManager, QWidget *parent) :
             SLOT(setMeasurementData(QList<double>,QList<double>,bool)));
 
     // Deallocation: measureArea takes ownership of selfmixed group
-    mSelfmixedGroup = new UiSelfmixedGroup();
+    /*mSelfmixedGroup = new UiSelfmixedGroup();
     measureArea->addMeasureGroup(mSelfmixedGroup);
 
     connect(mSignalManager,
             SIGNAL(selfmixedMeasurmentChanged(QList<double>,QList<double>,bool)),
             mSelfmixedGroup,
-            SLOT(setMeasurementData(QList<double>,QList<double>,bool)));
+            SLOT(setMeasurementData(QList<double>,QList<double>,bool)));*/
 }
 
 /*!

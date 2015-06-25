@@ -31,7 +31,7 @@ UiAnalogGroup::UiAnalogGroup(QWidget *parent) :
     QGroupBox(parent),
     mMinSize(0, 0)
 {
-    setTitle("Analog Measurements");
+    setTitle("Analog / Selfmixed Measurements");
 
     mNumSignals = 0;
     setupLabels();
@@ -69,6 +69,8 @@ void UiAnalogGroup::setNumSignals(int numSignals)
     \a pk contains peak-to-peak values for each signal. The parameter \a active
     indicates if the measurement is active or not.
 */
+double C_value = 0;
+
 void UiAnalogGroup::setMeasurementData(QList<double>level, QList<double>pk,
                                        bool active)
 {
@@ -102,6 +104,7 @@ void UiAnalogGroup::setMeasurementData(QList<double>level, QList<double>pk,
         }
     }
 
+
     doLayout();
 }
 
@@ -133,6 +136,10 @@ QSize UiAnalogGroup::sizeHint() const
 /*!
     Create needed labels.
 */
+
+
+
+
 void UiAnalogGroup::setupLabels()
 {
     for (int i = 0; i < UiAnalogSignal::MaxNumSignals; i++) {
@@ -169,6 +176,15 @@ void UiAnalogGroup::setupLabels()
             mMeasureLevelDiff[i/2]->setVisible(false);
 
         }
+        //SELF MIXED
+        label_C= new QLabel(this);
+        label_C->setText(QString("Self mixing"));
+        label_C->setVisible(false);
+
+        label_C_value = new QLabel(this);
+        label_C_value->setVisible(false);
+
+
 
     }
 
@@ -221,7 +237,6 @@ void UiAnalogGroup::doLayout()
         }
 
     }
-
 
     //
     //    position the labels
@@ -276,5 +291,15 @@ void UiAnalogGroup::doLayout()
         }
     }
 
+    yPos += VertDistBetweenUnrelated*4;
+    label_C->move(xPos, yPos);
+    label_C->setVisible(true);
 
+    yPos += 20;
+    label_C_value->move(xPos, yPos);
+
+    QString str = QString("C = %1").arg(C_value, 0, 'E', 3);
+    label_C_value-> setText(str);
+
+    label_C_value->setVisible(true);
 }

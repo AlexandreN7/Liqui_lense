@@ -74,6 +74,10 @@ private:
     QLabel* mMeasurePkLbl[UiAnalogSignal::MaxNumSignals];
     QLabel* mMeasurePk[UiAnalogSignal::MaxNumSignals];
 
+    //Calcul spécifique à un signal de type selfmixing
+    QLabel* label_C;
+    QLabel* label_C_value;
+
     QSize mMinSize;
 
     int mNumSignals;
