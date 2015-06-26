@@ -30,6 +30,7 @@
 #include <QFileDialog>
 #include <QFile>
 #include <QDataStream>
+#include <QInputDialog>
 
 #include "common/configuration.h"
 #include "device/devicemanager.h"
@@ -162,6 +163,7 @@ void UiMainWindow::createMenubar()
     menuBar()->addMenu(mCapture->menu());
 
     createOptionMenu();
+    createSelfmixedMenu();
     createHelpMenu();
 }
 
@@ -294,6 +296,15 @@ void UiMainWindow::createOptionMenu()
     }
 
     schemeGroup->setExclusive(true);
+}
+void UiMainWindow::createSelfmixedMenu()
+{
+    QMenu* menu = menuBar()->addMenu(tr("&Selfmixed"));
+
+    QAction* action = new QAction(tr("Selfmixed"), this);
+    action->setToolTip(tr("Selfmixed"));
+    connect(action, SIGNAL(triggered()), this, SLOT(parameters()));
+    menu->addAction(action);
 }
 
 /*!
@@ -814,6 +825,41 @@ void UiMainWindow::about()
 
     QMessageBox::about(this, QString("About %1").arg(
                            QCoreApplication::applicationName()), msg);
+}
+
+void UiMainWindow::parameters()
+{
+   /* QString msg = "";
+    msg.append("testtesttesttesttesttesttesttesttesttesttesttesttesttest");
+    QMessageBox::parameters(this, QString("Parameters %1").arg(
+                           QCoreApplication::applicationName()), msg);*/
+
+    QMessageBox msgBox;
+    msgBox.setText("Parameters of the selfmixed signal processing.");
+    //msgBox.exec();
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    bool ok;
+    double Lambda = QInputDialog::getDouble(this, tr("Lambda"),
+                                       tr("Lambda:"), 37.56, -10000, 10000, 2, &ok);
+
+    double Threshold_value = QInputDialog::getDouble(this, tr("Threshold"),
+                                       tr("Threshold:"), 37.56, -10000, 10000, 2, &ok);
+    /*int ret = msgBox.exec();
+    switch (ret) {
+      case QMessageBox::Save:
+          // Save was clicked
+          break;
+      case QMessageBox::Discard:
+          // Don't Save was clicked
+          break;
+      case QMessageBox::Cancel:
+          // Cancel was clicked
+          break;
+      default:
+          // should never be reached
+          break;
+    }*/
 }
 
 

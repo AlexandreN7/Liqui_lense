@@ -176,7 +176,8 @@ QVector<double>*  traitement(QVector<double>* s)
 
     for (unsigned int i=1; i<taille-2; i++)
     {
-        data_buff[i] = signal[i] - moy/(taille-2);
+        //data_buff[i] = signal[i] - moy/(taille-2);
+        data_buff[i]=0;
     }
 
 

@@ -64,6 +64,7 @@ private:
     void createFileMenu();
     void createDeviceMenu();
     void createOptionMenu();
+    void createSelfmixedMenu();
     void createHelpMenu();
     void updateMenu();
 
@@ -95,6 +96,7 @@ private slots:
     void openProject();
     void saveProject();
     void saveProjectAs();
+    void parameters();
     void about();
     
 };
