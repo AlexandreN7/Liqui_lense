@@ -1198,8 +1198,8 @@ void UiSelfmixedSignal::doLayout()
         wHeight += p->minimumHeight();
     }
 
-    if (wHeight < 400) {
-        wHeight = 400;
+    if (wHeight < 450) {
+        wHeight = 450;
     }
 
     int areaHeight = 0;
