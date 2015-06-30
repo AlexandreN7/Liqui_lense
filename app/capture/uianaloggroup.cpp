@@ -70,6 +70,9 @@ void UiAnalogGroup::setNumSignals(int numSignals)
     indicates if the measurement is active or not.
 */
 double C_value = 0;
+extern double lambda_value;
+extern double thresh_value;
+extern double alpha_value;
 
 void UiAnalogGroup::setMeasurementData(QList<double>level, QList<double>pk,
                                        bool active)
@@ -181,9 +184,6 @@ void UiAnalogGroup::setupLabels()
         label_C->setText(QString("Self mixing"));
         label_C->setVisible(false);
 
-        label_C_value = new QLabel(this);
-        label_C_value->setVisible(false);
-
 
 
     }
@@ -291,15 +291,36 @@ void UiAnalogGroup::doLayout()
         }
     }
 
-    yPos += VertDistBetweenUnrelated*4;
+    yPos += VertDistBetweenUnrelated*8;
     label_C->move(xPos, yPos);
     label_C->setVisible(true);
 
+    label_C_value = new QLabel(this);
+    label_alpha_value = new QLabel(this);
+    label_lambda_value = new QLabel(this);
+    label_thresh_value = new QLabel(this);
+
     yPos += 20;
     label_C_value->move(xPos, yPos);
-
     QString str = QString("C = %1").arg(C_value, 0, 'E', 3);
     label_C_value-> setText(str);
-
     label_C_value->setVisible(true);
+
+    yPos += 20;
+    label_alpha_value->move(xPos, yPos);
+    str = QString("Alpha = %1").arg(alpha_value, 0, 'E', 3);
+    label_alpha_value-> setText(str);
+    label_alpha_value->setVisible(true);
+
+    yPos += 20;
+    label_lambda_value->move(xPos, yPos);
+    str = QString("Lambda = %1").arg(lambda_value, 0, 'E', 3);
+    label_lambda_value-> setText(str);
+    label_lambda_value->setVisible(true);
+
+    yPos += 20;
+    label_thresh_value->move(xPos, yPos);
+    str = QString("Threshold = %1").arg(thresh_value, 0, 'E', 3);
+    label_thresh_value-> setText(str);
+    label_thresh_value->setVisible(true);
 }
