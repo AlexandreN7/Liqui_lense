@@ -308,19 +308,19 @@ void UiAnalogGroup::doLayout()
 
     yPos += 20;
     label_alpha_value->move(xPos, yPos);
-    str = QString("Alpha = %1").arg(alpha_value, 0, 'E', 3);
-    label_alpha_value-> setText(str);
+    QString str1 = QString("Alpha = %1").arg(alpha_value, 0, 'E', 3);
+    label_alpha_value-> setText(str1);
     label_alpha_value->setVisible(true);
 
     yPos += 20;
     label_lambda_value->move(xPos, yPos);
-    str = QString("Lambda = %1").arg(lambda_value, 0, 'E', 3);
-    label_lambda_value-> setText(str);
+    QString str2 = QString("Lambda = %1").arg(lambda_value, 0, 'E', 3);
+    label_lambda_value-> setText(str2);
     label_lambda_value->setVisible(true);
 
     yPos += 20;
     label_thresh_value->move(xPos, yPos);
-    str = QString("Threshold = %1").arg(thresh_value, 0, 'E', 3);
-    label_thresh_value-> setText(str);
+    QString str3 = QString("Threshold = %1").arg(thresh_value, 0, 'E', 3);
+    label_thresh_value-> setText(str3);
     label_thresh_value->setVisible(true);
 }
