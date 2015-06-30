@@ -35,6 +35,12 @@ UiAnalogGroup::UiAnalogGroup(QWidget *parent) :
 
     mNumSignals = 0;
     setupLabels();
+
+    label_C_value = new QLabel(this);
+    label_alpha_value = new QLabel(this);
+    label_lambda_value = new QLabel(this);
+    label_thresh_value = new QLabel(this);
+
 }
 
 /*!
@@ -294,11 +300,6 @@ void UiAnalogGroup::doLayout()
     yPos += VertDistBetweenUnrelated*8;
     label_C->move(xPos, yPos);
     label_C->setVisible(true);
-
-    label_C_value = new QLabel(this);
-    label_alpha_value = new QLabel(this);
-    label_lambda_value = new QLabel(this);
-    label_thresh_value = new QLabel(this);
 
     yPos += 20;
     label_C_value->move(xPos, yPos);
