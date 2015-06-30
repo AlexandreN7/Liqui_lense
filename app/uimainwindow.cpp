@@ -31,9 +31,11 @@
 #include <QFile>
 #include <QDataStream>
 #include <QInputDialog>
+#include <QFormLayout>
 
 #include "common/configuration.h"
 #include "device/devicemanager.h"
+#include "capture/uiselfmixingpro.h"
 
 
 /*!
@@ -829,22 +831,31 @@ void UiMainWindow::about()
 
 void UiMainWindow::parameters()
 {
-   /* QString msg = "";
-    msg.append("testtesttesttesttesttesttesttesttesttesttesttesttesttest");
-    QMessageBox::parameters(this, QString("Parameters %1").arg(
-                           QCoreApplication::applicationName()), msg);*/
+    QDialog *window = new Uiselfmixingpro;
+    window->show();
 
+
+    //Uiselfmixingpro dialog(mUiContext);
+    //int result = dialog.exec();
+
+    /*setWindowTitle(tr("Self mixing properties"));
+    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
+    QFormLayout* formLayout = new QFormLayout;
     QMessageBox msgBox;
     msgBox.setText("Parameters of the selfmixed signal processing.");
     //msgBox.exec();
     msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     msgBox.setDefaultButton(QMessageBox::Save);
     bool ok;
-    double Lambda = QInputDialog::getDouble(this, tr("Lambda"),
-                                       tr("Lambda:"), 37.56, -10000, 10000, 2, &ok);
+    double Lambda_value = QInputDialog::getDouble(this, tr("Lambda"),
+                                       tr("Lambda:"), 0, -10000, 10000, 3, &ok);
 
     double Threshold_value = QInputDialog::getDouble(this, tr("Threshold"),
-                                       tr("Threshold:"), 37.56, -10000, 10000, 2, &ok);
+                                       tr("Threshold:"), 0, -10000, 10000, 3, &ok);
+
+    double Alpha_value = QInputDialog::getDouble(this, tr("Alpha"),
+                                       tr("Alpha:"), 4, -10000, 10000, 3, &ok);*/
     /*int ret = msgBox.exec();
     switch (ret) {
       case QMessageBox::Save:
