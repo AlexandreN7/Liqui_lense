@@ -21,13 +21,14 @@ signals:
 
 public slots:
     void changeValue(void); //update des values au changement de valeurs dans les boxes
+    void changeProcessing(void);
 private:
 
     QDoubleSpinBox *DoubleSpinBox_alpha;
     QDoubleSpinBox *DoubleSpinBox_lambda;
     QDoubleSpinBox *DoubleSpinBox_thresh;
+    QComboBox *ComboBox_signals;
     QGroupBox *spinBoxesGroup;
-    QGroupBox *editsGroup;
     QGroupBox *doubleSpinBoxesGroup;
 
 
