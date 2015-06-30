@@ -34,7 +34,11 @@
 #include "device/devicemanager.h"
 #include "analyzer/analyzermanager.h"
 
-
+//variable globale car on a pas envi de se faire chier
+double alpha_value=4;
+double lambda_value=0;
+double thresh_value=2.25;
+int process_index=0;
 
 Uiselfmixingpro::Uiselfmixingpro(QWidget *parent) :
     QDialog(parent)
@@ -59,29 +63,33 @@ Uiselfmixingpro::Uiselfmixingpro(QWidget *parent) :
     DoubleSpinBox_alpha = new QDoubleSpinBox;
     DoubleSpinBox_alpha->setRange(-1000, 1000);
     DoubleSpinBox_alpha->setDecimals(2);
-    DoubleSpinBox_alpha->setValue(4.00);
+    DoubleSpinBox_alpha->setValue(alpha_value);
+    //DoubleSpinBox_lambda->setSingleStep(1); //1 par défaut
 
 
     QLabel *Label_lambda = new QLabel(tr("Lambda value"));
     DoubleSpinBox_lambda= new QDoubleSpinBox;
     DoubleSpinBox_lambda->setRange(-1000, 1000);
     DoubleSpinBox_lambda->setDecimals(10);
-    DoubleSpinBox_lambda->setValue(0);
+    DoubleSpinBox_lambda->setValue(lambda_value);
+    DoubleSpinBox_lambda->setSingleStep(0.1);
+    DoubleSpinBox_lambda->setSuffix("nm");
 
 
     QLabel *Label_thresh = new QLabel(tr("Threshold value"));
     DoubleSpinBox_thresh = new QDoubleSpinBox;
     DoubleSpinBox_thresh->setRange(-1000, 1000);
     DoubleSpinBox_thresh->setDecimals(5);
-    DoubleSpinBox_thresh->setValue(0);
+    DoubleSpinBox_thresh->setValue(thresh_value);
+    DoubleSpinBox_thresh->setSingleStep(0.25);
 
 
     QLabel *Label_ComboBox_signals = new QLabel(tr("Choix du type de traitement à effectuer"));
     ComboBox_signals= new QComboBox;
     ComboBox_signals->setObjectName("Choix de traitement");
-    ComboBox_signals->addItem("traitement 1");
-    ComboBox_signals->addItem("traitement 2");
-    ComboBox_signals->addItem("traitement 3");
+    ComboBox_signals->addItem("Traitement 1");
+    ComboBox_signals->addItem("Traitement 2");
+    ComboBox_signals->addItem("Traitement 3");
 
     //gestion ok / cancel
     QVBoxLayout* verticalLayout = new QVBoxLayout();
@@ -96,13 +104,13 @@ Uiselfmixingpro::Uiselfmixingpro(QWidget *parent) :
     connect(bottonBox, SIGNAL(accepted()), this, SLOT(accept()));
     connect(bottonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
-    connect(DoubleSpinBox_alpha, SIGNAL(valueChanged(int)),
+    connect(DoubleSpinBox_alpha, SIGNAL(valueChanged(double)),
             this, SLOT(changeValue(void)));
 
-    connect(DoubleSpinBox_lambda, SIGNAL(valueChanged(int)),
+    connect(DoubleSpinBox_lambda, SIGNAL(valueChanged(double)),
             this, SLOT(changeValue(void)));
 
-    connect(DoubleSpinBox_thresh, SIGNAL(valueChanged(int)),
+    connect(DoubleSpinBox_thresh, SIGNAL(valueChanged(double)),
             this, SLOT(changeValue(void)));
 
     connect(ComboBox_signals, SIGNAL(currentIndexChanged(int)), this,
@@ -125,10 +133,7 @@ Uiselfmixingpro::Uiselfmixingpro(QWidget *parent) :
     setLayout(verticalLayout);
 }
 
-double alpha_value=0;
-double lambda_value=0;
-double thresh_value=0;
-int process_index=0;
+
 
 void Uiselfmixingpro::changeValue(void)
 {
