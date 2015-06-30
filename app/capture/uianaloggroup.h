@@ -78,6 +78,15 @@ private:
     QLabel* label_C;
     QLabel* label_C_value;
 
+    QLabel* label_alpha;
+    QLabel* label_alpha_value;
+
+    QLabel* label_lambda;
+    QLabel* label_lambda_value;
+
+    QLabel* label_thresh;
+    QLabel* label_thresh_value;
+
     QSize mMinSize;
 
     int mNumSignals;
