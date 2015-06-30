@@ -77,7 +77,8 @@ SOURCES += \
     capture/uiselfmixedgroup.cpp \
     capture/uiselfmixedsignal.cpp \
     capture/uiselfmixedtrigger.cpp \
-    device/labtool/traitement.cpp
+    device/labtool/traitement.cpp \
+    capture/uiselfmixingpro.cpp
 
 HEADERS += \
     generator/i2cgenerator.h \
@@ -158,7 +159,8 @@ HEADERS += \
     capture/uiselfmixedtrigger.h \
     capture/uiselfmixedsignal.h \
     capture/uiselfmixedgroup.h \
-    device/labtool/traitement.h
+    device/labtool/traitement.h \
+    capture/uiselfmixingpro.h
 
 RESOURCES += \
     icons.qrc
