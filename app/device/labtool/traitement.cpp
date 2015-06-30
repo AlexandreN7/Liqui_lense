@@ -1,6 +1,16 @@
 
 #include "traitement.h"
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <fstream>
+#include <string>
+#include <math.h>
+
+#define PI 3.14159265
+
+using namespace std;
+
 QVector<double>*  traitement(QVector<double>* s)
 {
     QVector<double>* buffer = NULL;
@@ -12,8 +22,7 @@ QVector<double>*  traitement(QVector<double>* s)
 
     double *data = s->data();
 
-    double *data_mod;
-    data_mod = new double[taille];
+
 
     double *data_buff = buffer->data();
 
@@ -24,20 +33,39 @@ QVector<double>*  traitement(QVector<double>* s)
     double Gain = 0;
 
 
-    double *diffDataMod;
-    diffDataMod = new double[taille];
+    double *dataNorm;
+    dataNorm = new double[taille];
 
-    double *vectDiffDataMod;
-    vectDiffDataMod = new double[taille];
+    double *dataNormAcos;
+    dataNormAcos = new double[taille];
+
+    double *diffDataNormAcos;
+    diffDataNormAcos = new double[taille];
 
     double *frange;
     frange = new double[taille];
 
+
+
+
+
+
     double *reconstitution;
     reconstitution = new double[taille];
 
-    double *signal;
-    signal = new double[taille];
+
+
+
+    double *signalTest;
+    signalTest = new double[taille];
+
+
+
+
+
+    double *signalReconstruitGood;
+    signalReconstruitGood = new double[taille];
+
 
 
 
@@ -45,7 +73,10 @@ QVector<double>*  traitement(QVector<double>* s)
     // Detection du min et du max du signal pour normaliser //
     // //////////////////////////////////////////////////// //
 
-    for (unsigned int i=1; i<taille-2; i++)
+    min_A = data[0];
+    max_A = data[0];
+
+    for (unsigned int i=1; i<taille; i++)
     {
         if(data[i] > data[i-1])
         {
@@ -64,22 +95,11 @@ QVector<double>*  traitement(QVector<double>* s)
         }
     }
 
-    Gain = 1/(max_A-min_A);
+    Gain = 2/(max_A-min_A); // Amplitude entre -1 et 1
 
-    for (unsigned int i=1; i<taille-2; i++)
+    for (unsigned int i=0; i<taille; i++)
     {
-
-        if(i>30)
-        {
-            for(int k = 0; k<30; k++)
-            {
-            data_mod[i] = Gain*data[i] + 0.0333 * Gain * data[k];
-            }
-        }
-
-        else
-            data_mod[i] = Gain * data[i];
-
+        dataNorm[i] = Gain * data[i];
     }
 
     // //////////////////////////////////////////////////// //
@@ -87,67 +107,88 @@ QVector<double>*  traitement(QVector<double>* s)
 
 
 
-    unsigned int dt = 20;
-    double gainDiff = 2;
 
-    for (unsigned int i=1+dt; i<taille-(dt+1); i++)
+    // //////////////////////////////////////////////////// //
+    // //// Arccosinus --> estimation de la phase [pi] //// //
+    // //////////////////////////////////////////////////// //
+
+    diffDataNormAcos[0] = 0;
+    data_buff[0] = data_buff[1];
+
+
+    for (unsigned int i=1; i<taille; i++)
     {
-        diffDataMod[i] = data[i+dt]-data[i];
+        dataNormAcos[i] = acos(dataNorm[i]);
 
 
-        if(diffDataMod[i]>diffDataMod[i-dt] && diffDataMod[i]>diffDataMod[i+dt])
-        {
-            vectDiffDataMod[i] = gainDiff*diffDataMod[i];
-        }
-
-        else if(diffDataMod[i]<diffDataMod[i-dt] && diffDataMod[i]<diffDataMod[i+dt])
-        {
-            vectDiffDataMod[i] = gainDiff*diffDataMod[i];
-        }
-
-        else
-        {
-            vectDiffDataMod[i] = 0;
-        }
+        diffDataNormAcos[i] = 10 * (dataNormAcos[i] - dataNormAcos[i-1]);    // Gain nécessaire à la detection de pics
     }
 
+    // //////////////////////////////////////////////////// //
+    // //////////////////////////////////////////////////// //
 
-    double seuil = 1;
+
+    extern double alpha_value;
+    extern double lambda_value;
+    extern double thresh_value; // = 2.25;
+    extern int process_index;
+
+
     int flag_down = 0;
     int flag_up = 0;
 
 
+    double min1 = 1;
+    double min2 = 1;
+
     for (unsigned int i=1; i<taille-2; i++)
     {
-        if(vectDiffDataMod[i]<(-1)*seuil && flag_up == 0)
+        if(diffDataNormAcos[i]<0)
+            signalTest[i] = (-1)*diffDataNormAcos[i]*diffDataNormAcos[i];
+        else
+            signalTest[i] = diffDataNormAcos[i]*diffDataNormAcos[i];
+
+        if(signalTest[i]<(-1)*thresh_value)
         {
+            if(min2>dataNorm[i] && i > 1000 && i < taille-1000)
+                min2=dataNorm[i];
+
+            if(flag_up == 0)
+            {
             frange[i] = 1;
             flag_up = 1;
+            }
         }
 
-        else if(vectDiffDataMod[i]>seuil && flag_down == 0)
+        else if(signalTest[i]>thresh_value)
         {
+            if(min1>dataNorm[i] && i > 1000 && i < taille-1000)
+                min1=dataNorm[i];
+
+            if(flag_down == 0)
+            {
             frange[i] = -1;
             flag_down = 1;
+            }
         }
 
         else
         {
 
-            if(vectDiffDataMod[i]>=(-1)*seuil && flag_up == 1)
+            if(signalTest[i]>=(-1)*thresh_value && flag_up == 1)
                 flag_up = 0;
 
-            if(vectDiffDataMod[i]<=seuil && flag_down == 1)
+            if(signalTest[i]<=thresh_value && flag_down == 1)
                 flag_down = 0;
 
             frange[i]=0;
         }
 
-
-
-
-         //data_buff[i] = frange[i];
+        //data_buff[i] = frange[i];
      }
+
+
+    reconstitution[0] = 0;
 
     double moy = 0;
 
@@ -156,34 +197,67 @@ QVector<double>*  traitement(QVector<double>* s)
     {
         if(frange[i] == 1)
         {
-            reconstitution[i]=reconstitution[i-1]+0.5;
+            reconstitution[i]=reconstitution[i-1]+2*3.1416;
         }
 
         else if(frange[i] == -1)
         {
-            reconstitution[i]=reconstitution[i-1]-0.5;
+            reconstitution[i]=reconstitution[i-1]-2*3.1416;
         }
 
         else
             reconstitution[i]=reconstitution[i-1];
 
-        signal[i] = reconstitution[i] + data_mod[i];
+        moy += reconstitution[i] / 32768;
 
-        moy = moy + signal[i];
 
+        signalReconstruitGood[i] = reconstitution[i] + 2*3.1416*dataNormAcos[i];
     }
 
+    extern double C_value;
 
-    for (unsigned int i=1; i<taille-2; i++)
+    C_value = 4.5 * (min1-min2) + 1.1;
+
+
+    switch (process_index)
     {
-        //data_buff[i] = signal[i] - moy/(taille-2);
-        data_buff[i]=0;
+        case 0:
+        {
+             for (unsigned int i=1; i<taille-2; i++)
+             {
+                 data_buff[i] = 0.2 * (signalReconstruitGood[i]-moy) - 2;
+             }
+
+             break;
+        }
+
+        case 1:
+        {
+            for (unsigned int i=1; i<taille-2; i++)
+            {
+                data_buff[i] = frange[i];
+            }
+
+            break;
+        }
+
+        case 2:
+        {
+            for (unsigned int i=1; i<taille-2; i++)
+            {
+                data_buff[i] = reconstitution[i];
+            }
+
+        break;
+        }
+
     }
+
+
 
 
     return buffer;
 
 }
-
 
 
