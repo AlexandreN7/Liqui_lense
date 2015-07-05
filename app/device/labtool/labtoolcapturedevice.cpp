@@ -1327,17 +1327,19 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // Fonction o
             double *data_buff1 = data->data();
             double *data_buff2 = buffer->data();
 
-            //traitement(*mAnalogSignals,buffer); // on fait le traitement sur le buffer
+            traitement(*mAnalogSignals,buffer); // on fait le traitement sur le buffer
 
             for(int i = 0; i<taille; i++) {
                 data_buff1[i]=data_buff2[i];
             }
+            //delete[] data_buff2;
 
         }
     }
+
     delete buffer;
     buffer =NULL;
-    return mAnalogSignals[signalId];
+    return data;
 }
 
 void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) //peut être faire le traitement ici

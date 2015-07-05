@@ -251,8 +251,13 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
 
     }
 
-
-
+    delete  dataNorm;
+    delete  dataNormAcos;
+    delete  diffDataNormAcos;
+    delete  frange;
+    delete  reconstitution;
+    delete  signalTest;
+    delete  signalReconstruitGood;
 
     //return buffer;
 
