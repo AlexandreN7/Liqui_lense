@@ -1292,23 +1292,52 @@ void LabToolCaptureDevice::setAnalogData(int signalId, QVector<double> data)
     }
 }
 
-QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // A quoi sert cette fonction????
+
+
+QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // Fonction ou on fait le traitement
 {
-    qDebug("goes here selfmixedData");
-    QVector<double>* data = NULL;
+    if (buffer != NULL) {
+        delete buffer;
+        buffer = NULL;
+    }
+
+    if (data != NULL) {
+        delete data;
+        data = NULL;
+    }
+
+    buffer = new QVector<double>(32767);
+    data = new QVector<double>(32767);
+
+    qDebug("SelfmixedData");
+
 
     if (signalId < MaxSelfmixedSignals) {
         //Il y a un problème ici, on utilise les valeurs de la sortie analogique
         //Si ces valeurs n'existe pas, cela conduit à une segmentation fault
 
+
+        unsigned int taille = mAnalogSignals[signalId]->size();
+
+
         if (mAnalogSignals[signalId] == data){
             //well f*ck
         }
         else {
-            data = traitement(*mAnalogSignals);
+            double *data_buff1 = data->data();
+            double *data_buff2 = buffer->data();
+
+            //traitement(*mAnalogSignals,buffer); // on fait le traitement sur le buffer
+
+            for(int i = 0; i<taille; i++) {
+                data_buff1[i]=data_buff2[i];
+            }
+
         }
     }
-    return data;
+    delete buffer;
+    buffer =NULL;
+    return mAnalogSignals[signalId];
 }
 
 void LabToolCaptureDevice::setSelfmixedData(int signalId, QVector<double> data) //peut être faire le traitement ici

@@ -1,4 +1,3 @@
-
 #include "traitement.h"
 
 #include <stdlib.h>
@@ -11,20 +10,19 @@
 
 using namespace std;
 
-QVector<double>*  traitement(QVector<double>* s)
+void traitement(QVector<double>* s,QVector<double>* buffer)
 {
-    QVector<double>* buffer = NULL;
-
+    /*QVector<double>* buffer= NULL;
     unsigned int taille = s->size();
-
-
-    buffer = s;
-
+    buffer = new QVector<double>(taille);*/
+    unsigned int taille = s->size();
     double *data = s->data();
-
-
-
     double *data_buff = buffer->data();
+
+
+    for(int i = 0; i<taille-2; i++) {
+        data_buff[i]=data[i];
+    }
 
 
     double max_A = 0;
@@ -256,8 +254,6 @@ QVector<double>*  traitement(QVector<double>* s)
 
 
 
-    return buffer;
+    //return buffer;
 
 }
-
-

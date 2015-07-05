@@ -2,8 +2,7 @@
 #define TRAITEMENT_H
 
 #include <QVector>
-
-QVector<double>* traitement(QVector<double>* s);
+void traitement(QVector<double>* s,QVector<double>* buffer);
 
 
 #endif // TRAITEMENT_H

@@ -72,6 +72,10 @@ private slots:
 
 private:
 
+
+    QVector<double>* data = NULL;
+    QVector<double>* buffer= NULL;
+
     enum Constants {
         MaxDigitalSignals = 11,
         MaxAnalogSignals = 2,
