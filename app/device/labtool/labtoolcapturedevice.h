@@ -79,7 +79,7 @@ private:
     enum Constants {
         MaxDigitalSignals = 11,
         MaxAnalogSignals = 2,
-        MaxSelfmixedSignals = 2
+        MaxSelfmixedSignals = 1
     };
 
     UiLabToolTriggerConfig* mTriggerConfig;
@@ -101,8 +101,8 @@ private:
     QVector<int>* mDigitalSignals[MaxDigitalSignals];
     QVector<double>* mAnalogSignals[MaxAnalogSignals];
     QVector<quint16>* mAnalogSignalData[MaxAnalogSignals];
-    QVector<double>* mSelfmixedSignals[MaxAnalogSignals];
-    QVector<quint16>* mSelfmixedSignalData[MaxAnalogSignals];
+    QVector<double>* mSelfmixedSignals[MaxSelfmixedSignals];
+    QVector<quint16>* mSelfmixedSignalData[MaxSelfmixedSignals];
     QList<int>* mDigitalSignalTransitions[MaxDigitalSignals];
 
     QList<double> mSupportedVPerDiv;

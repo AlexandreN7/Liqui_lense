@@ -303,7 +303,7 @@ void UiMainWindow::createSelfmixedMenu()
 {
     QMenu* menu = menuBar()->addMenu(tr("&Selfmixed"));
 
-    QAction* action = new QAction(tr("Selfmixed"), this);
+    QAction* action = new QAction(tr("Selfmixed properties"), this);
     action->setToolTip(tr("Selfmixed"));
     connect(action, SIGNAL(triggered()), this, SLOT(parameters()));
     menu->addAction(action);
