@@ -27,6 +27,7 @@
 #include "analyzer/analyzermanager.h"
 #include "common/configuration.h"
 #include "common/stringutil.h"
+#include "asserv.h"
 
 /*!
     \class CaptureApp
@@ -568,9 +569,19 @@ void CaptureApp::start()
     }
 
 }
-
+bool stp = 0;
 void CaptureApp::autofocus() {
     //le pwm se déclenche pour entretnir l'autofocus
+    qDebug("Declenchement de l'autofocus");
+    Asserv_thread *asserv = NULL;
+    asserv = new Asserv_thread();
+    asserv->start();
+    if (stp == 0) {
+        stp = 0;
+    }
+    else {
+        stp = 1;
+    }
 }
 
 /*!
