@@ -303,10 +303,16 @@ void UiMainWindow::createSelfmixedMenu()
 {
     QMenu* menu = menuBar()->addMenu(tr("&Selfmixed"));
 
-    QAction* action = new QAction(tr("Selfmixed properties"), this);
-    action->setToolTip(tr("Selfmixed"));
-    connect(action, SIGNAL(triggered()), this, SLOT(parameters()));
-    menu->addAction(action);
+    QAction* action1 = new QAction(tr("Selfmixed properties"), this);
+    action1->setToolTip(tr("Selfmixed"));
+    connect(action1, SIGNAL(triggered()), this, SLOT(parameters()));
+    menu->addAction(action1);
+
+
+    QAction* action2 = new QAction(tr("Autofocus settings"), this);
+    action2->setToolTip(tr("Selfmixed"));
+    connect(action2, SIGNAL(triggered()), this, SLOT(autofocus_settings()));
+    menu->addAction(action2);
 }
 
 /*!
@@ -833,44 +839,10 @@ void UiMainWindow::parameters()
 {
     QDialog *window = new Uiselfmixingpro;
     window->show();
-
-
-    //Uiselfmixingpro dialog(mUiContext);
-    //int result = dialog.exec();
-
-    /*setWindowTitle(tr("Self mixing properties"));
-    setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
-
-    QFormLayout* formLayout = new QFormLayout;
-    QMessageBox msgBox;
-    msgBox.setText("Parameters of the selfmixed signal processing.");
-    //msgBox.exec();
-    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-    msgBox.setDefaultButton(QMessageBox::Save);
-    bool ok;
-    double Lambda_value = QInputDialog::getDouble(this, tr("Lambda"),
-                                       tr("Lambda:"), 0, -10000, 10000, 3, &ok);
-
-    double Threshold_value = QInputDialog::getDouble(this, tr("Threshold"),
-                                       tr("Threshold:"), 0, -10000, 10000, 3, &ok);
-
-    double Alpha_value = QInputDialog::getDouble(this, tr("Alpha"),
-                                       tr("Alpha:"), 4, -10000, 10000, 3, &ok);*/
-    /*int ret = msgBox.exec();
-    switch (ret) {
-      case QMessageBox::Save:
-          // Save was clicked
-          break;
-      case QMessageBox::Discard:
-          // Don't Save was clicked
-          break;
-      case QMessageBox::Cancel:
-          // Cancel was clicked
-          break;
-      default:
-          // should never be reached
-          break;
-    }*/
 }
 
-
+void UiMainWindow::autofocus_settings()
+{
+    QDialog *window = new Uiselfmixingpro;
+    window->show();
+}

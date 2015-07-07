@@ -97,6 +97,7 @@ private slots:
     void saveProject();
     void saveProjectAs();
     void parameters();
+    void autofocus_settings();
     void about();
     
 };
