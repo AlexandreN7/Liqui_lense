@@ -1311,19 +1311,15 @@ QVector<double>* LabToolCaptureDevice::selfmixedData(int signalId) // Fonction o
 
     qDebug("SelfmixedData");
 
-
     if (signalId < MaxSelfmixedSignals) {
         //Il y a un problème ici, on utilise les valeurs de la sortie analogique
         //Si ces valeurs n'existe pas, cela conduit à une segmentation fault
 
-
-        unsigned int taille = mAnalogSignals[signalId]->size();
-
-
-        if (mAnalogSignals[signalId] == data){
+        if (mAnalogSignals[signalId] == NULL){
             //well f*ck
         }
         else {
+            unsigned int taille = mAnalogSignals[signalId]->size();
             double *data_buff1 = data->data();
             double *data_buff2 = buffer->data();
 

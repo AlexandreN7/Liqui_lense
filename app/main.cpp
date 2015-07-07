@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
     qsrand(QDateTime::currentDateTime().toTime_t());
 
     // application name and organization details for the creator of the application
-    QCoreApplication::setOrganizationName("LAAAS");
+    QCoreApplication::setOrganizationName("LAAS");
     QCoreApplication::setOrganizationDomain("Proux-Schultz");
     QCoreApplication::setApplicationName("Self mixing analyzer");
 
