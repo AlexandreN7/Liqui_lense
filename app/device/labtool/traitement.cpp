@@ -148,7 +148,7 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
 
         if(signalTest[i]<(-1)*thresh_value)
         {
-            if(min2>dataNorm[i] && i > 1000 && i < taille-1000)
+            if(min2>dataNorm[i] && i > 5000 && i < taille-5000)
                 min2=dataNorm[i];
 
             if(flag_up == 0)
@@ -160,7 +160,7 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
 
         else if(signalTest[i]>thresh_value)
         {
-            if(min1>dataNorm[i] && i > 1000 && i < taille-1000)
+            if(min1>dataNorm[i] && i > 5000 && i < taille-5000)
                 min1=dataNorm[i];
 
             if(flag_down == 0)
@@ -214,7 +214,7 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
 
     extern double C_value;
 
-    C_value = 4.5 * (min1-min2) + 1.1;
+    C_value = floorf((4.5 * (min1-min2) + 1.1) * 100) / 100;
 
 
     switch (process_index)
@@ -243,7 +243,7 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
         {
             for (unsigned int i=1; i<taille-2; i++)
             {
-                data_buff[i] = reconstitution[i];
+                data_buff[i] = dataNorm[i];
             }
 
         break;
