@@ -90,6 +90,7 @@ Uiselfmixingpro::Uiselfmixingpro(QWidget *parent) :
     ComboBox_signals->addItem("Traitement 1");
     ComboBox_signals->addItem("Traitement 2");
     ComboBox_signals->addItem("Traitement 3");
+    ComboBox_signals->setCurrentIndex(process_index);
 
     //gestion ok / cancel
     QVBoxLayout* verticalLayout = new QVBoxLayout();

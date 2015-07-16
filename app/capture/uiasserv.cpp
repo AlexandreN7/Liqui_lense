@@ -51,6 +51,7 @@ Uiasserv::Uiasserv(QWidget *parent) :
     ComboBox_signals->addItem("SPI");
     ComboBox_signals->addItem("PWM");
     ComboBox_signals->addItem("Manual");
+    ComboBox_signals->setCurrentIndex(asserv_index);
 
 
     QLabel *Label_dicho = new QLabel(tr("Nombre de subdivisions pour la dichotomie"));
@@ -64,6 +65,9 @@ Uiasserv::Uiasserv(QWidget *parent) :
     SpinBox_order->setRange(0, 1000);
     SpinBox_order->setValue(order_value);
     SpinBox_order->setSingleStep(1);
+
+
+    QLabel *Label_manual = new QLabel(tr("Contrôle manuel de la lentille"));
 
     //gestion ok / cancel
     QVBoxLayout* verticalLayout = new QVBoxLayout();
@@ -93,6 +97,9 @@ Uiasserv::Uiasserv(QWidget *parent) :
     verticalLayout->addWidget(SpinBox_dicho);
     verticalLayout->addWidget(Label_order);
     verticalLayout->addWidget(SpinBox_order);
+
+    verticalLayout->addWidget(Label_manual);
+
 
 
     verticalLayout->addLayout(formLayout);
