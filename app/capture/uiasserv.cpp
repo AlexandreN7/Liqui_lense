@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
 #include <QSpinBox>
+#include <QDoubleSpinBox>
 
 #include <QButtonGroup>
 #include <QCheckBox>
@@ -23,6 +24,8 @@
 int asserv_index=0;
 int dicho_value = 5;
 int order_value = 3;
+float manual_value = 0;
+int manual_state = 0; // if manual_state = 1 -> mode manuel
 
 Uiasserv::Uiasserv(QWidget *parent) :
     QDialog(parent)
@@ -38,8 +41,8 @@ Uiasserv::Uiasserv(QWidget *parent) :
     QFormLayout* formLayout = new QFormLayout;
     formLayout->setRowWrapPolicy(QFormLayout::WrapAllRows);
 
-    CaptureDevice* device = DeviceManager::instance().activeDevice()
-            ->captureDevice();
+    //CaptureDevice* device = DeviceManager::instance().activeDevice()
+    //        ->captureDevice();
 
 
 
@@ -50,9 +53,17 @@ Uiasserv::Uiasserv(QWidget *parent) :
     ComboBox_signals->addItem("UART");
     ComboBox_signals->addItem("SPI");
     ComboBox_signals->addItem("PWM");
-    ComboBox_signals->addItem("Manual");
+    ComboBox_signals->addItem("No command");
     ComboBox_signals->setCurrentIndex(asserv_index);
 
+    QLabel *Label_button = new QLabel(tr("Asservissement ou pilotage manuel ?"));
+    manualButton = new QCheckBox("Manual");
+    if (manual_state==1) {
+        manualButton->setCheckState(Qt::Checked );
+    }
+    else {
+        //manualButton->setCheckState(Qt::CheckState );
+    }
 
     QLabel *Label_dicho = new QLabel(tr("Nombre de subdivisions pour la dichotomie"));
     SpinBox_dicho = new QSpinBox;
@@ -68,6 +79,26 @@ Uiasserv::Uiasserv(QWidget *parent) :
 
 
     QLabel *Label_manual = new QLabel(tr("Contrôle manuel de la lentille"));
+    data_slider = new QSlider(Qt::Horizontal);
+    data_slider->setRange(0,100);
+    data_slider->setValue(manual_value);
+
+    Spinboxdata_slider = new QDoubleSpinBox;
+    Spinboxdata_slider->setRange(0, 100);
+    Spinboxdata_slider->setDecimals(5);
+    Spinboxdata_slider->setValue(manual_value);
+    Spinboxdata_slider->setSingleStep(0.25);
+
+
+    //gestion du chaos
+    if(manual_state==1) {
+        data_slider->setEnabled(true);
+        Spinboxdata_slider->setEnabled(true);
+    }
+    else {
+        data_slider->setEnabled(false);
+        Spinboxdata_slider->setEnabled(false);
+    }
 
     //gestion ok / cancel
     QVBoxLayout* verticalLayout = new QVBoxLayout();
@@ -91,21 +122,34 @@ Uiasserv::Uiasserv(QWidget *parent) :
     connect(SpinBox_order, SIGNAL(valueChanged(double)),
             this, SLOT(changeValue(void)));
 
+    connect(Spinboxdata_slider, SIGNAL(valueChanged(double)),
+            this, SLOT(changeValue(void)));
+
+    connect(data_slider, SIGNAL(sliderReleased()),
+            this, SLOT(changeSliderValue(void)));
+    connect(manualButton, SIGNAL(pressed()),
+            this, SLOT(buttonPressed(void)));
+
+    connect(manualButton, SIGNAL(pressed()),
+            this, SLOT(buttonchecked(void)));
+
+
+    //implementation
     verticalLayout->addWidget(Label_ComboBox_signals);
     verticalLayout->addWidget(ComboBox_signals);
+    verticalLayout->addWidget(Label_button);
+    verticalLayout->addWidget(manualButton);
+
     verticalLayout->addWidget(Label_dicho);
     verticalLayout->addWidget(SpinBox_dicho);
     verticalLayout->addWidget(Label_order);
     verticalLayout->addWidget(SpinBox_order);
-
     verticalLayout->addWidget(Label_manual);
-
-
+    verticalLayout->addWidget(data_slider);
+    verticalLayout->addWidget(Spinboxdata_slider);
 
     verticalLayout->addLayout(formLayout);
     verticalLayout->addWidget(bottonBox);
-
-
     setLayout(verticalLayout);
 }
 
@@ -115,9 +159,35 @@ void Uiasserv::changeValue(void)
 {
     dicho_value = SpinBox_dicho->value();
     order_value = SpinBox_order->value();
+    manual_value = Spinboxdata_slider->value();
+    data_slider->setValue(manual_value);
+
 }
 
 void Uiasserv::changeProcessing(void)
 {
     asserv_index=ComboBox_signals->currentIndex();
+}
+
+void Uiasserv::changeSliderValue(void){
+    manual_value=data_slider->value();
+    Spinboxdata_slider->setValue(manual_value);
+}
+
+void Uiasserv::buttonchecked(void){
+    qDebug("buttonPressed");
+    if (manual_state==0){
+        manual_state=1;
+    }
+    else {
+        manual_state=0;
+    }
+    if(manual_state==1) {
+        data_slider->setEnabled(true);
+        Spinboxdata_slider->setEnabled(true);
+    }
+    else {
+        data_slider->setEnabled(false);
+        Spinboxdata_slider->setEnabled(false);
+    }
 }

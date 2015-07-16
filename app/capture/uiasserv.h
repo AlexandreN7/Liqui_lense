@@ -10,7 +10,8 @@
 #include <QDoubleSpinBox>
 #include <QSpinBox>
 #include <QGroupBox>
-
+#include <QSlider>
+#include <QPushButton>
 
 class Uiasserv : public QDialog
 {
@@ -20,10 +21,14 @@ public:
     ~Uiasserv(){}
 
 signals:
+    void sliderReleased(void);
+    //void click(void);
 
 public slots:
     void changeValue(void); //update des values au changement de valeurs dans les boxes
     void changeProcessing(void);
+    void changeSliderValue(void);
+    void buttonchecked(void);
 private:
 
     QSpinBox  *SpinBox_dicho;
@@ -31,6 +36,10 @@ private:
     QComboBox *ComboBox_signals;
     QGroupBox *spinBoxesGroup;
     QGroupBox *doubleSpinBoxesGroup;
+    QSlider *data_slider;
+    QDoubleSpinBox *Spinboxdata_slider;
+    QCheckBox *manualButton;
+
 };
 #endif // UIASSERV_H
 
