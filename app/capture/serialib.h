@@ -54,10 +54,10 @@ class serialib
 {
 public:
     // Constructor of the class
-    serialib    ();
+    serialib();
 
     // Destructor
-    ~serialib   ();
+    ~serialib();
 
 
 

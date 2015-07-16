@@ -79,7 +79,9 @@ SOURCES += \
     capture/uiselfmixedtrigger.cpp \
     device/labtool/traitement.cpp \
     capture/uiselfmixingpro.cpp \
-    capture/asserv.cpp
+    capture/asserv.cpp \
+    capture/uiasserv.cpp \
+    capture/serialib.cpp
 
 HEADERS += \
     generator/i2cgenerator.h \
@@ -162,7 +164,9 @@ HEADERS += \
     capture/uiselfmixedgroup.h \
     device/labtool/traitement.h \
     capture/uiselfmixingpro.h \
-    capture/asserv.h
+    capture/asserv.h \
+    capture/uiasserv.h \
+    capture/serialib.h
 
 RESOURCES += \
     icons.qrc

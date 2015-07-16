@@ -36,6 +36,7 @@
 #include "common/configuration.h"
 #include "device/devicemanager.h"
 #include "capture/uiselfmixingpro.h"
+#include "capture/uiasserv.h"
 
 
 /*!
@@ -843,6 +844,6 @@ void UiMainWindow::parameters()
 
 void UiMainWindow::autofocus_settings()
 {
-    QDialog *window = new Uiselfmixingpro;
+    QDialog *window = new Uiasserv;
     window->show();
 }
