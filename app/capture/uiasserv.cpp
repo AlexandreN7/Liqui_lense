@@ -21,7 +21,8 @@
 //variable globale car on a pas envi de se faire chier
 
 int asserv_index=0;
-int dicho_value = 0;
+int dicho_value = 5;
+int order_value = 3;
 
 Uiasserv::Uiasserv(QWidget *parent) :
     QDialog(parent)
@@ -49,13 +50,20 @@ Uiasserv::Uiasserv(QWidget *parent) :
     ComboBox_signals->addItem("UART");
     ComboBox_signals->addItem("SPI");
     ComboBox_signals->addItem("PWM");
+    ComboBox_signals->addItem("Manual");
 
-    QLabel *Label_thresh = new QLabel(tr("Threshold value"));
-    SpinBox_thresh = new QSpinBox;
-    SpinBox_thresh->setRange(-1000, 1000);
-    //SpinBox_thresh->setDecimals(5);
-    SpinBox_thresh->setValue(0);
-    SpinBox_thresh->setSingleStep(1);
+
+    QLabel *Label_dicho = new QLabel(tr("Nombre de subdivisions pour la dichotomie"));
+    SpinBox_dicho = new QSpinBox;
+    SpinBox_dicho->setRange(0, 1000);
+    SpinBox_dicho->setValue(dicho_value);
+    SpinBox_dicho->setSingleStep(1);
+
+    QLabel *Label_order = new QLabel(tr("Ordre de la dichotomie"));
+    SpinBox_order= new QSpinBox;
+    SpinBox_order->setRange(0, 1000);
+    SpinBox_order->setValue(order_value);
+    SpinBox_order->setSingleStep(1);
 
     //gestion ok / cancel
     QVBoxLayout* verticalLayout = new QVBoxLayout();
@@ -73,14 +81,18 @@ Uiasserv::Uiasserv(QWidget *parent) :
     connect(ComboBox_signals, SIGNAL(currentIndexChanged(int)), this,
             SLOT(changeProcessing(void)));
 
-    connect(SpinBox_thresh, SIGNAL(valueChanged(double)),
+    connect(SpinBox_dicho, SIGNAL(valueChanged(double)),
             this, SLOT(changeValue(void)));
 
+    connect(SpinBox_order, SIGNAL(valueChanged(double)),
+            this, SLOT(changeValue(void)));
 
     verticalLayout->addWidget(Label_ComboBox_signals);
     verticalLayout->addWidget(ComboBox_signals);
-    verticalLayout->addWidget(Label_thresh);
-    verticalLayout->addWidget(SpinBox_thresh);
+    verticalLayout->addWidget(Label_dicho);
+    verticalLayout->addWidget(SpinBox_dicho);
+    verticalLayout->addWidget(Label_order);
+    verticalLayout->addWidget(SpinBox_order);
 
 
     verticalLayout->addLayout(formLayout);
@@ -94,9 +106,8 @@ Uiasserv::Uiasserv(QWidget *parent) :
 
 void Uiasserv::changeValue(void)
 {
-    //alpha_value =DoubleSpinBox_alpha->value();
-    //lambda_value =DoubleSpinBox_lambda->value();
-    //thresh_value =DoubleSpinBox_thresh->value();
+    dicho_value = SpinBox_dicho->value();
+    order_value = SpinBox_order->value();
 }
 
 void Uiasserv::changeProcessing(void)

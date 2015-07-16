@@ -11,12 +11,25 @@ Asserv_thread::Asserv_thread()
     qDebug("Constructeur du Thread");
 
 }
-
+//external dependencies
 extern double C_value;
 extern bool stp;
+extern int asserv_index;
+extern int dicho_value;
+extern int order_value;
 
 void Asserv_thread::run()
 {
+    switch(asserv_index){
+        case 0 :
+        break;
+        case 1 :
+        break;
+        case 2 :
+        break;
+        case 3 :
+        break;
+    }
         serialib LS;                                                            // Object of the serialib class
         int Ret;                                                                // Used for return values
         char Buffer[128];
@@ -39,10 +52,6 @@ void Asserv_thread::run()
                                                                                 // The final character of the string must be a line feed ('\n')
 
         Ret=LS.WriteString("Yolo\n");
-
-
-
-
 
         // Close the connection with the device
 

@@ -26,13 +26,11 @@ public slots:
     void changeProcessing(void);
 private:
 
-    QSpinBox *SpinBox_thresh;
+    QSpinBox  *SpinBox_dicho;
+    QSpinBox  *SpinBox_order;
     QComboBox *ComboBox_signals;
     QGroupBox *spinBoxesGroup;
     QGroupBox *doubleSpinBoxesGroup;
-
-
-
 };
 #endif // UIASSERV_H
 
