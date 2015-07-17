@@ -4,8 +4,8 @@
 
 using namespace std;
 
-#define DEVICE_PORT "/dev/ttyUSB0"                         // ttyUSB0 for linux
-
+//#define DEVICE_PORT "/dev/ttyUSB0"                         // ttyUSB0 for linux
+#define DEVICE_PORT "/dev/ttyACM0"
 Asserv_thread::Asserv_thread()
 {
     qDebug("Constructeur du Thread");
@@ -62,13 +62,15 @@ void uart_config_manual(){ //gestion manuelle de la postion de la lentille
         printf ("Error while opening port. Permission problem ?\n");        // ... display a message ...
         //return Ret;                                                         // ... quit the application
     }
-    printf ("Serial port opened successfully !\n");
+    qDebug("Serial port opened successfully !\n");
     // Read a string from the serial device
     //Ret=LS.ReadString(Buffer,'\n',128,1000);
-    char data_manual[10];
+    char data_manual[5];
     sprintf(data_manual, "%f", manual_value);
 
+    Ret=LS.WriteString("$");
     Ret=LS.WriteString(data_manual);
+    Ret=LS.WriteString("%");
 
     LS.Close();
 

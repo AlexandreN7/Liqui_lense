@@ -29,6 +29,7 @@
 
 #include "device/devicemanager.h"
 
+
 /*!
     \class UiPlot
     \brief UI area responsible for plotting signals and analyzers

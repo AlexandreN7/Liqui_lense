@@ -18,6 +18,7 @@
 #include "common/configuration.h"
 #include "device/devicemanager.h"
 #include "analyzer/analyzermanager.h"
+#include "asserv.h"
 
 //variable globale car on a pas envi de se faire chier
 
@@ -26,6 +27,7 @@ int dicho_value = 5;
 int order_value = 3;
 float manual_value = 0;
 int manual_state = 0; // if manual_state = 1 -> mode manuel
+extern int stp;
 
 Uiasserv::Uiasserv(QWidget *parent) :
     QDialog(parent)
