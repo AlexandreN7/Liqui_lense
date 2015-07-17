@@ -1,25 +1,84 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'labtooldevicecomm.h'
 **
-** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.6)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include "../app/device/labtool/labtooldevicecomm.h"
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'labtooldevicecomm.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.6. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.2.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
+struct qt_meta_stringdata_LabToolDeviceComm_t {
+    QByteArrayData data[29];
+    char stringdata[460];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    offsetof(qt_meta_stringdata_LabToolDeviceComm_t, stringdata) + ofs \
+        - idx * sizeof(QByteArrayData) \
+    )
+static const qt_meta_stringdata_LabToolDeviceComm_t qt_meta_stringdata_LabToolDeviceComm = {
+    {
+QT_MOC_LITERAL(0, 0, 17),
+QT_MOC_LITERAL(1, 18, 16),
+QT_MOC_LITERAL(2, 35, 0),
+QT_MOC_LITERAL(3, 36, 9),
+QT_MOC_LITERAL(4, 46, 14),
+QT_MOC_LITERAL(5, 61, 24),
+QT_MOC_LITERAL(6, 86, 22),
+QT_MOC_LITERAL(7, 109, 22),
+QT_MOC_LITERAL(8, 132, 8),
+QT_MOC_LITERAL(9, 141, 4),
+QT_MOC_LITERAL(10, 146, 7),
+QT_MOC_LITERAL(11, 154, 17),
+QT_MOC_LITERAL(12, 172, 16),
+QT_MOC_LITERAL(13, 189, 13),
+QT_MOC_LITERAL(14, 203, 12),
+QT_MOC_LITERAL(15, 216, 10),
+QT_MOC_LITERAL(16, 227, 13),
+QT_MOC_LITERAL(17, 241, 11),
+QT_MOC_LITERAL(18, 253, 3),
+QT_MOC_LITERAL(19, 257, 26),
+QT_MOC_LITERAL(20, 284, 16),
+QT_MOC_LITERAL(21, 301, 26),
+QT_MOC_LITERAL(22, 328, 28),
+QT_MOC_LITERAL(23, 357, 16),
+QT_MOC_LITERAL(24, 374, 18),
+QT_MOC_LITERAL(25, 393, 17),
+QT_MOC_LITERAL(26, 411, 18),
+QT_MOC_LITERAL(27, 430, 23),
+QT_MOC_LITERAL(28, 454, 4)
+    },
+    "LabToolDeviceComm\0connectionStatus\0\0"
+    "connected\0captureStopped\0"
+    "captureConfigurationDone\0"
+    "captureReceivedSamples\0LabToolDeviceTransfer*\0"
+    "transfer\0size\0trigger\0digitalTrigSample\0"
+    "analogTrigSample\0activeDigital\0"
+    "activeAnalog\0signalTrim\0captureFailed\0"
+    "const char*\0msg\0captureConfigurationFailed\0"
+    "generatorStopped\0generatorConfigurationDone\0"
+    "generatorConfigurationFailed\0"
+    "generatorRunning\0generatorRunFailed\0"
+    "calibrationFailed\0calibrationSuccess\0"
+    "LabToolCalibrationData*\0data\0"
+};
+#undef QT_MOC_LITERAL
+
 static const uint qt_meta_data_LabToolDeviceComm[] = {
 
  // content:
-       6,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
       13,   14, // methods
@@ -29,45 +88,42 @@ static const uint qt_meta_data_LabToolDeviceComm[] = {
        0,       // flags
       13,       // signalCount
 
- // signals: signature, parameters, type, tag, flags
-      29,   19,   18,   18, 0x05,
-      52,   18,   18,   18, 0x05,
-      69,   18,   18,   18, 0x05,
-     191,   96,   18,   18, 0x05,
-     276,  272,   18,   18, 0x05,
-     303,  272,   18,   18, 0x05,
-     343,   18,   18,   18, 0x05,
-     362,   18,   18,   18, 0x05,
-     391,  272,   18,   18, 0x05,
-     433,   18,   18,   18, 0x05,
-     452,  272,   18,   18, 0x05,
-     484,  272,   18,   18, 0x05,
-     520,  515,   18,   18, 0x05,
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   79,    2, 0x06,
+       4,    0,   82,    2, 0x06,
+       5,    0,   83,    2, 0x06,
+       6,    8,   84,    2, 0x06,
+      16,    1,  101,    2, 0x06,
+      19,    1,  104,    2, 0x06,
+      20,    0,  107,    2, 0x06,
+      21,    0,  108,    2, 0x06,
+      22,    1,  109,    2, 0x06,
+      23,    0,  112,    2, 0x06,
+      24,    1,  113,    2, 0x06,
+      25,    1,  116,    2, 0x06,
+      26,    1,  119,    2, 0x06,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::Bool,    3,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 7, QMetaType::UInt, QMetaType::UInt, QMetaType::UInt, QMetaType::UInt, QMetaType::UInt, QMetaType::UInt, QMetaType::Int,    8,    9,   10,   11,   12,   13,   14,   15,
+    QMetaType::Void, 0x80000000 | 17,   18,
+    QMetaType::Void, 0x80000000 | 17,   18,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 17,   18,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 17,   18,
+    QMetaType::Void, 0x80000000 | 17,   18,
+    QMetaType::Void, 0x80000000 | 27,   28,
 
        0        // eod
-};
-
-static const char qt_meta_stringdata_LabToolDeviceComm[] = {
-    "LabToolDeviceComm\0\0connected\0"
-    "connectionStatus(bool)\0captureStopped()\0"
-    "captureConfigurationDone()\0"
-    "transfer,size,trigger,digitalTrigSample,analogTrigSample,activeDigital"
-    ",activeAnalog,signalTrim\0"
-    "captureReceivedSamples(LabToolDeviceTransfer*,uint,uint,uint,uint,uint"
-    ",uint,int)\0"
-    "msg\0captureFailed(const char*)\0"
-    "captureConfigurationFailed(const char*)\0"
-    "generatorStopped()\0generatorConfigurationDone()\0"
-    "generatorConfigurationFailed(const char*)\0"
-    "generatorRunning()\0generatorRunFailed(const char*)\0"
-    "calibrationFailed(const char*)\0data\0"
-    "calibrationSuccess(LabToolCalibrationData*)\0"
 };
 
 void LabToolDeviceComm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
         LabToolDeviceComm *_t = static_cast<LabToolDeviceComm *>(_o);
         switch (_id) {
         case 0: _t->connectionStatus((*reinterpret_cast< bool(*)>(_a[1]))); break;
@@ -85,31 +141,105 @@ void LabToolDeviceComm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 12: _t->calibrationSuccess((*reinterpret_cast< LabToolCalibrationData*(*)>(_a[1]))); break;
         default: ;
         }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (LabToolDeviceComm::*_t)(bool );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::connectionStatus)) {
+                *result = 0;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::captureStopped)) {
+                *result = 1;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::captureConfigurationDone)) {
+                *result = 2;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)(LabToolDeviceTransfer * , unsigned int , unsigned int , unsigned int , unsigned int , unsigned int , unsigned int , int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::captureReceivedSamples)) {
+                *result = 3;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)(const char * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::captureFailed)) {
+                *result = 4;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)(const char * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::captureConfigurationFailed)) {
+                *result = 5;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::generatorStopped)) {
+                *result = 6;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::generatorConfigurationDone)) {
+                *result = 7;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)(const char * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::generatorConfigurationFailed)) {
+                *result = 8;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)();
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::generatorRunning)) {
+                *result = 9;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)(const char * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::generatorRunFailed)) {
+                *result = 10;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)(const char * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::calibrationFailed)) {
+                *result = 11;
+            }
+        }
+        {
+            typedef void (LabToolDeviceComm::*_t)(LabToolCalibrationData * );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&LabToolDeviceComm::calibrationSuccess)) {
+                *result = 12;
+            }
+        }
     }
 }
 
-const QMetaObjectExtraData LabToolDeviceComm::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject LabToolDeviceComm::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_LabToolDeviceComm,
-      qt_meta_data_LabToolDeviceComm, &staticMetaObjectExtraData }
+    { &QObject::staticMetaObject, qt_meta_stringdata_LabToolDeviceComm.data,
+      qt_meta_data_LabToolDeviceComm,  qt_static_metacall, 0, 0}
 };
 
-#ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &LabToolDeviceComm::getStaticMetaObject() { return staticMetaObject; }
-#endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject *LabToolDeviceComm::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
 void *LabToolDeviceComm::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_LabToolDeviceComm))
+    if (!strcmp(_clname, qt_meta_stringdata_LabToolDeviceComm.stringdata))
         return static_cast<void*>(const_cast< LabToolDeviceComm*>(this));
     return QObject::qt_metacast(_clname);
 }
@@ -122,6 +252,10 @@ int LabToolDeviceComm::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
+        _id -= 13;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 13)
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 13;
     }
     return _id;

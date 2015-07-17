@@ -1,25 +1,64 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'generatorapp.h'
 **
-** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.6)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include "../app/generator/generatorapp.h"
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'generatorapp.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.6. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.2.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
+struct qt_meta_stringdata_GeneratorApp_t {
+    QByteArrayData data[16];
+    char stringdata[200];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    offsetof(qt_meta_stringdata_GeneratorApp_t, stringdata) + ofs \
+        - idx * sizeof(QByteArrayData) \
+    )
+static const qt_meta_stringdata_GeneratorApp_t qt_meta_stringdata_GeneratorApp = {
+    {
+QT_MOC_LITERAL(0, 0, 12),
+QT_MOC_LITERAL(1, 13, 19),
+QT_MOC_LITERAL(2, 33, 0),
+QT_MOC_LITERAL(3, 34, 7),
+QT_MOC_LITERAL(4, 42, 21),
+QT_MOC_LITERAL(5, 64, 30),
+QT_MOC_LITERAL(6, 95, 9),
+QT_MOC_LITERAL(7, 105, 22),
+QT_MOC_LITERAL(8, 128, 10),
+QT_MOC_LITERAL(9, 139, 3),
+QT_MOC_LITERAL(10, 143, 5),
+QT_MOC_LITERAL(11, 149, 9),
+QT_MOC_LITERAL(12, 159, 4),
+QT_MOC_LITERAL(13, 164, 7),
+QT_MOC_LITERAL(14, 172, 4),
+QT_MOC_LITERAL(15, 177, 21)
+    },
+    "GeneratorApp\0setGeneratorEnabled\0\0"
+    "enabled\0handleGeneratorClosed\0"
+    "UiGeneratorArea::GeneratorType\0generator\0"
+    "handleGenerateFinished\0successful\0msg\0"
+    "start\0startLoop\0stop\0doStart\0loop\0"
+    "changeGenerateActions\0"
+};
+#undef QT_MOC_LITERAL
+
 static const uint qt_meta_data_GeneratorApp[] = {
 
  // content:
-       6,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        8,   14, // methods
@@ -29,32 +68,32 @@ static const uint qt_meta_data_GeneratorApp[] = {
        0,       // flags
        0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      22,   14,   13,   13, 0x08,
-      58,   48,   13,   13, 0x08,
-     127,  112,   13,   13, 0x08,
-     164,   13,   13,   13, 0x08,
-     172,   13,   13,   13, 0x08,
-     184,   13,   13,   13, 0x08,
-     196,  191,   13,   13, 0x08,
-     210,   13,   13,   13, 0x08,
+ // slots: name, argc, parameters, tag, flags
+       1,    1,   54,    2, 0x08,
+       4,    1,   57,    2, 0x08,
+       7,    2,   60,    2, 0x08,
+      10,    0,   65,    2, 0x08,
+      11,    0,   66,    2, 0x08,
+      12,    0,   67,    2, 0x08,
+      13,    1,   68,    2, 0x08,
+      15,    0,   71,    2, 0x08,
+
+ // slots: parameters
+    QMetaType::Void, QMetaType::Bool,    3,
+    QMetaType::Void, 0x80000000 | 5,    6,
+    QMetaType::Void, QMetaType::Bool, QMetaType::QString,    8,    9,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,   14,
+    QMetaType::Void,
 
        0        // eod
-};
-
-static const char qt_meta_stringdata_GeneratorApp[] = {
-    "GeneratorApp\0\0enabled\0setGeneratorEnabled(bool)\0"
-    "generator\0"
-    "handleGeneratorClosed(UiGeneratorArea::GeneratorType)\0"
-    "successful,msg\0handleGenerateFinished(bool,QString)\0"
-    "start()\0startLoop()\0stop()\0loop\0"
-    "doStart(bool)\0changeGenerateActions()\0"
 };
 
 void GeneratorApp::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
         GeneratorApp *_t = static_cast<GeneratorApp *>(_o);
         switch (_id) {
         case 0: _t->setGeneratorEnabled((*reinterpret_cast< bool(*)>(_a[1]))); break;
@@ -70,28 +109,21 @@ void GeneratorApp::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
     }
 }
 
-const QMetaObjectExtraData GeneratorApp::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject GeneratorApp::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_GeneratorApp,
-      qt_meta_data_GeneratorApp, &staticMetaObjectExtraData }
+    { &QObject::staticMetaObject, qt_meta_stringdata_GeneratorApp.data,
+      qt_meta_data_GeneratorApp,  qt_static_metacall, 0, 0}
 };
 
-#ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &GeneratorApp::getStaticMetaObject() { return staticMetaObject; }
-#endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject *GeneratorApp::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
 void *GeneratorApp::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_GeneratorApp))
+    if (!strcmp(_clname, qt_meta_stringdata_GeneratorApp.stringdata))
         return static_cast<void*>(const_cast< GeneratorApp*>(this));
     return QObject::qt_metacast(_clname);
 }
@@ -104,6 +136,10 @@ int GeneratorApp::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
+        _id -= 8;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 8)
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 8;
     }
     return _id;

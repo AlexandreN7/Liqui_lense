@@ -1,25 +1,46 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'uii2canalyzerconfig.h'
 **
-** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.6)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.2.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include "../app/analyzer/i2c/uii2canalyzerconfig.h"
+#include <QtCore/qbytearray.h>
+#include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'uii2canalyzerconfig.h' doesn't include <QObject>."
-#elif Q_MOC_OUTPUT_REVISION != 63
-#error "This file was generated using the moc from 4.8.6. It"
+#elif Q_MOC_OUTPUT_REVISION != 67
+#error "This file was generated using the moc from 5.2.1. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
+struct qt_meta_stringdata_UiI2CAnalyzerConfig_t {
+    QByteArrayData data[3];
+    char stringdata[35];
+};
+#define QT_MOC_LITERAL(idx, ofs, len) \
+    Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
+    offsetof(qt_meta_stringdata_UiI2CAnalyzerConfig_t, stringdata) + ofs \
+        - idx * sizeof(QByteArrayData) \
+    )
+static const qt_meta_stringdata_UiI2CAnalyzerConfig_t qt_meta_stringdata_UiI2CAnalyzerConfig = {
+    {
+QT_MOC_LITERAL(0, 0, 19),
+QT_MOC_LITERAL(1, 20, 12),
+QT_MOC_LITERAL(2, 33, 0)
+    },
+    "UiI2CAnalyzerConfig\0verifyChoice\0\0"
+};
+#undef QT_MOC_LITERAL
+
 static const uint qt_meta_data_UiI2CAnalyzerConfig[] = {
 
  // content:
-       6,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        1,   14, // methods
@@ -29,20 +50,18 @@ static const uint qt_meta_data_UiI2CAnalyzerConfig[] = {
        0,       // flags
        0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      21,   20,   20,   20, 0x08,
+ // slots: name, argc, parameters, tag, flags
+       1,    0,   19,    2, 0x08,
+
+ // slots: parameters
+    QMetaType::Void,
 
        0        // eod
-};
-
-static const char qt_meta_stringdata_UiI2CAnalyzerConfig[] = {
-    "UiI2CAnalyzerConfig\0\0verifyChoice()\0"
 };
 
 void UiI2CAnalyzerConfig::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        Q_ASSERT(staticMetaObject.cast(_o));
         UiI2CAnalyzerConfig *_t = static_cast<UiI2CAnalyzerConfig *>(_o);
         switch (_id) {
         case 0: _t->verifyChoice(); break;
@@ -52,28 +71,21 @@ void UiI2CAnalyzerConfig::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
     Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData UiI2CAnalyzerConfig::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
-};
-
 const QMetaObject UiI2CAnalyzerConfig::staticMetaObject = {
-    { &UiAnalyzerConfig::staticMetaObject, qt_meta_stringdata_UiI2CAnalyzerConfig,
-      qt_meta_data_UiI2CAnalyzerConfig, &staticMetaObjectExtraData }
+    { &UiAnalyzerConfig::staticMetaObject, qt_meta_stringdata_UiI2CAnalyzerConfig.data,
+      qt_meta_data_UiI2CAnalyzerConfig,  qt_static_metacall, 0, 0}
 };
 
-#ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &UiI2CAnalyzerConfig::getStaticMetaObject() { return staticMetaObject; }
-#endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject *UiI2CAnalyzerConfig::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
 void *UiI2CAnalyzerConfig::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_UiI2CAnalyzerConfig))
+    if (!strcmp(_clname, qt_meta_stringdata_UiI2CAnalyzerConfig.stringdata))
         return static_cast<void*>(const_cast< UiI2CAnalyzerConfig*>(this));
     return UiAnalyzerConfig::qt_metacast(_clname);
 }
@@ -86,6 +98,10 @@ int UiI2CAnalyzerConfig::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         if (_id < 1)
             qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 1)
+            *reinterpret_cast<int*>(_a[0]) = -1;
         _id -= 1;
     }
     return _id;
