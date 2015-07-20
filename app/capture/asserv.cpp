@@ -6,10 +6,16 @@ using namespace std;
 
 //#define DEVICE_PORT "/dev/ttyUSB0"                         // ttyUSB0 for linux
 #define DEVICE_PORT "/dev/ttyACM0"
+
+
 Asserv_thread::Asserv_thread()
 {
     qDebug("Constructeur du Thread");
+    C_buff = 0;
+    delay_asserv = 100;
 }
+
+
 //external dependencies
 extern double C_value;
 extern bool stp;
@@ -19,7 +25,9 @@ extern int order_value;
 extern int manual_state;
 extern float manual_value;
 
-float pas_initial = 100/order_value;
+float pas_initial = 100/dicho_value;
+
+
 
 
 
@@ -29,6 +37,10 @@ void uart_config_asserv(){
     serialib LS;                                                            // Object of the serialib class
     int Ret;                                                                // Used for return values
     char Buffer[128];
+
+    double command_memory = 0;
+
+    pas_initial = 100/dicho_value;
 
 
     // Open serial port
@@ -45,16 +57,16 @@ void uart_config_asserv(){
 
 
     double *C_values;
-    C_values = new double[order_value+1];
+    C_values = new double[dicho_value+1];
 
     float *command;
-    command = new float[order_value+1];
+    command = new float[dicho_value+1];
 
     command[0] = 0;
 
     char str[20]  = "";
 
-    for(int j=0; j<order_value ; j++)
+    for(int j=0; j<dicho_value ; j++)
     {
         sprintf(str, "%f", command[j]);
         Ret = LS.WriteString(str);
@@ -66,13 +78,13 @@ void uart_config_asserv(){
     }
 
 
-    sprintf(str, "%f", command[order_value]);
+    sprintf(str, "%f", command[dicho_value]);
     Ret = LS.WriteString(str);
     Ret = LS.WriteString("\n");
     Ret = LS.WriteString("\r");
 
 
-    C_values[order_value] = order_value; //get_C()-1.8;
+    C_values[dicho_value] = get_C();
 
 
     double min_diff;
@@ -80,7 +92,7 @@ void uart_config_asserv(){
 
     int ind_min = 0;
 
-    for(int j=1; j<=order_value ; j++)
+    for(int j=1; j<=dicho_value ; j++)
     {
         if(C_values[j] < min_diff)
         {
@@ -89,7 +101,7 @@ void uart_config_asserv(){
         }
     }
 
-    double command_memory;
+
     command_memory = ind_min * pas_initial;
 
     delete C_values;
@@ -101,14 +113,13 @@ void uart_config_asserv(){
     for(int i=1; i<order_value; i++)
     {
 
-        C_values = new double[order_value+1];
-        command = new float[order_value+1];
+        C_values = new double[dicho_value+1];
+        command = new float[dicho_value+1];
 
 
+        pas_initial = pas_initial / dicho_value;
 
-        pas_initial = pas_initial / order_value;
-
-        command[0] = command_memory - order_value*pas_initial/2;
+        command[0] = command_memory - dicho_value*pas_initial/2;
 
         if(command[0] < 0)
             command[0] = 0;
@@ -116,8 +127,7 @@ void uart_config_asserv(){
             command[0] = 100;
 
 
-
-        for(int j=0; j<order_value ; j++)
+        for(int j=0; j<dicho_value ; j++)
         {
             sprintf(str, "%f", command[j]);
             Ret = LS.WriteString(str);
@@ -128,18 +138,18 @@ void uart_config_asserv(){
             command[j+1] = command[j] + pas_initial;
         }
 
-        sprintf(str, "%f", command[order_value]);
+        sprintf(str, "%f", command[dicho_value]);
         Ret = LS.WriteString(str);
         Ret = LS.WriteString("\n");
         Ret = LS.WriteString("\r");
 
-        C_values[order_value] = order_value; //get_C()-1.8;
+        C_values[dicho_value] = get_C();
 
         min_diff = C_values[0];
 
         ind_min = 0;
 
-        for(int j=1; j<=order_value ; j++)
+        for(int j=1; j<=dicho_value ; j++)
         {
             if(C_values[j] < min_diff)
             {
@@ -150,19 +160,25 @@ void uart_config_asserv(){
 
         command_memory = command[ind_min];
 
-
         delete C_values;
         delete command;
-
     }
-
 
     sprintf(str, "%f", command_memory);
     Ret = LS.WriteString(str);
     Ret = LS.WriteString("\n");
     Ret = LS.WriteString("\r");
 
-     LS.Close();
+    LS.Close();
+}
+
+
+double Asserv_thread::get_C()
+{
+    /*this->sleep(delay_asserv);
+    C_buff = C_value;*/
+
+    return 0;//C_buff;
 }
 
 
