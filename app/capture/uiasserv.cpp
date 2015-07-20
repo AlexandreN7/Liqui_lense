@@ -118,10 +118,10 @@ Uiasserv::Uiasserv(QWidget *parent) :
     connect(ComboBox_signals, SIGNAL(currentIndexChanged(int)), this,
             SLOT(changeProcessing(void)));
 
-    connect(SpinBox_dicho, SIGNAL(valueChanged(double)),
+    connect(SpinBox_dicho, SIGNAL(valueChanged(int)),
             this, SLOT(changeValue(void)));
 
-    connect(SpinBox_order, SIGNAL(valueChanged(double)),
+    connect(SpinBox_order, SIGNAL(valueChanged(int)),
             this, SLOT(changeValue(void)));
 
     connect(Spinboxdata_slider, SIGNAL(valueChanged(double)),
