@@ -8,6 +8,7 @@ using namespace std;
 #define DEVICE_PORT "/dev/ttyACM0"
 
 
+
 Asserv_thread::Asserv_thread()
 {
     qDebug("Constructeur du Thread");
@@ -28,11 +29,17 @@ extern float manual_value;
 float pas_initial = 100/dicho_value;
 
 
+double Asserv_thread::get_C()
+{
+    this->sleep(delay_asserv);
+    C_buff = C_value;
 
+    return C_buff;
+}
 
 
 ///////////////////////////////////asserv definition/////////////////////////////////:
-void uart_config_asserv(){
+void Asserv_thread::uart_config_asserv(){
     
     serialib LS;                                                            // Object of the serialib class
     int Ret;                                                                // Used for return values
@@ -66,15 +73,19 @@ void uart_config_asserv(){
 
     char str[20]  = "";
 
+    cout<<endl<<"Passage 1"<<endl;
+
     for(int j=0; j<dicho_value ; j++)
     {
         sprintf(str, "%f", command[j]);
         Ret = LS.WriteString(str);
         Ret = LS.WriteString("\n");
         Ret = LS.WriteString("\r");
-        C_values[j] = C_value-1.8;
+        C_values[j] = get_C();
         command[j+1] = command[j] + pas_initial;
-        cout<<command[j]<<endl;
+
+        cout<<"Comm. : "<<command[j]<<endl;
+        cout<<"C_val : "<<C_values[j]<<endl;
     }
 
 
@@ -85,6 +96,10 @@ void uart_config_asserv(){
 
 
     C_values[dicho_value] = get_C();
+
+    cout<<"Comm. : "<<command[dicho_value]<<endl;
+    cout<<"C_val : "<<C_values[dicho_value]<<endl;
+    cout<<endl<<endl;
 
 
     double min_diff;
@@ -113,6 +128,8 @@ void uart_config_asserv(){
     for(int i=1; i<order_value; i++)
     {
 
+        cout<<endl<<"Passage "<<i+1<<endl;
+
         C_values = new double[dicho_value+1];
         command = new float[dicho_value+1];
 
@@ -133,9 +150,10 @@ void uart_config_asserv(){
             Ret = LS.WriteString(str);
             Ret = LS.WriteString("\n");
             Ret = LS.WriteString("\r");
-            cout<<command[j]<<endl;
-            C_values[j] = j; //get_C()-1.8;
+            C_values[j] = get_C();
             command[j+1] = command[j] + pas_initial;
+            cout<<"Comm. : "<<command[j]<<endl;
+            cout<<"C_val : "<<C_values[j]<<endl;
         }
 
         sprintf(str, "%f", command[dicho_value]);
@@ -144,6 +162,11 @@ void uart_config_asserv(){
         Ret = LS.WriteString("\r");
 
         C_values[dicho_value] = get_C();
+
+        cout<<"Comm. : "<<command[dicho_value]<<endl;
+        cout<<"C_val : "<<C_values[dicho_value]<<endl;
+        cout<<endl<<endl;
+
 
         min_diff = C_values[0];
 
@@ -173,13 +196,7 @@ void uart_config_asserv(){
 }
 
 
-double Asserv_thread::get_C()
-{
-    /*this->sleep(delay_asserv);
-    C_buff = C_value;*/
 
-    return 0;//C_buff;
-}
 
 
 void spi_config_asserv(){}

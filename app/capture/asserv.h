@@ -1,5 +1,6 @@
 #ifndef ASSERV
 #define ASSERV
+
 #include <QApplication>
 #include <QtGui>
 #include <QThread>
@@ -13,6 +14,7 @@ class Asserv_thread : public QThread
 
         double C_buff;
         long delay_asserv;
+        void uart_config_asserv();
 
     private :
                 double get_C();
