@@ -42,27 +42,14 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
     frange = new double[taille];
 
 
-
-
-
-
     double *reconstitution;
     reconstitution = new double[taille];
-
-
-
 
     double *signalTest;
     signalTest = new double[taille];
 
-
-
-
-
     double *signalReconstruitGood;
     signalReconstruitGood = new double[taille];
-
-
 
 
     // //////////////////////////////////////////////////// //
@@ -124,7 +111,7 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
     // //////////////////////////////////////////////////// //
 
 
-    extern double alpha_value;
+    extern int alpha_value;
     extern double lambda_value;
     extern double thresh_value;
     extern int process_index;
@@ -209,7 +196,38 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
 
     extern double C_value;
 
-    C_value = floorf((4.5 * (min1-min2) + 1.1) * 100) / 100;
+    switch(alpha_value)
+    {
+        case 1:
+        {
+            C_value = floorf((3.63 * (min1-min2) + 0.274) * 100) / 100;
+            break;
+        }
+
+        case 2:
+        {
+            C_value = floorf((4 * (min1-min2) + 0.8) * 100) / 100;
+            break;
+        }
+
+        case 4:
+        {
+            C_value = floorf((4.4 * (min1-min2) + 1) * 100) / 100;
+            break;
+        }
+
+        case 10:
+        {
+            C_value = floorf((5.3 * (min1-min2) + 1) * 100) / 100;
+            break;
+        }
+
+        default:
+        {
+            C_value = floorf((4.5 * (min1-min2) + 1.1) * 100) / 100;
+            break;
+        }
+    }
 
 
     switch (process_index)
@@ -218,7 +236,7 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
         {
              for (unsigned int i=1; i<taille-2; i++)
              {
-                 data_buff[i] = 0.2 * (signalReconstruitGood[i]-moy) - 2;
+                 data_buff[i] = 0.2 * (signalReconstruitGood[i]-moy) - 1.57;
              }
 
              break;

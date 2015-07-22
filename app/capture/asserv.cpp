@@ -4,8 +4,8 @@
 
 using namespace std;
 
-//#define DEVICE_PORT "/dev/ttyUSB0"                         // ttyUSB0 for linux
-#define DEVICE_PORT "/dev/ttyACM0"
+#define DEVICE_PORT "/dev/ttyUSB0"                         // ttyUSB0 for linux
+//#define DEVICE_PORT "/dev/ttyACM0"
 
 
 
@@ -31,7 +31,7 @@ float pas_initial = 100/dicho_value;
 
 double Asserv_thread::get_C()
 {
-    this->sleep(delay_asserv);
+    this->msleep(delay_asserv);
     C_buff = C_value;
 
     return C_buff;
@@ -78,9 +78,11 @@ void Asserv_thread::uart_config_asserv(){
     for(int j=0; j<dicho_value ; j++)
     {
         sprintf(str, "%f", command[j]);
-        Ret = LS.WriteString(str);
-        Ret = LS.WriteString("\n");
-        Ret = LS.WriteString("\r");
+
+        Ret=LS.WriteString("$");
+        Ret=LS.WriteString(str);
+        Ret=LS.WriteString("%");
+
         C_values[j] = get_C();
         command[j+1] = command[j] + pas_initial;
 
@@ -90,9 +92,9 @@ void Asserv_thread::uart_config_asserv(){
 
 
     sprintf(str, "%f", command[dicho_value]);
-    Ret = LS.WriteString(str);
-    Ret = LS.WriteString("\n");
-    Ret = LS.WriteString("\r");
+    Ret=LS.WriteString("$");
+    Ret=LS.WriteString(str);
+    Ret=LS.WriteString("%");
 
 
     C_values[dicho_value] = get_C();
@@ -147,9 +149,9 @@ void Asserv_thread::uart_config_asserv(){
         for(int j=0; j<dicho_value ; j++)
         {
             sprintf(str, "%f", command[j]);
-            Ret = LS.WriteString(str);
-            Ret = LS.WriteString("\n");
-            Ret = LS.WriteString("\r");
+            Ret=LS.WriteString("$");
+            Ret=LS.WriteString(str);
+            Ret=LS.WriteString("%");
             C_values[j] = get_C();
             command[j+1] = command[j] + pas_initial;
             cout<<"Comm. : "<<command[j]<<endl;
@@ -157,9 +159,9 @@ void Asserv_thread::uart_config_asserv(){
         }
 
         sprintf(str, "%f", command[dicho_value]);
-        Ret = LS.WriteString(str);
-        Ret = LS.WriteString("\n");
-        Ret = LS.WriteString("\r");
+        Ret=LS.WriteString("$");
+        Ret=LS.WriteString(str);
+        Ret=LS.WriteString("%");
 
         C_values[dicho_value] = get_C();
 
@@ -188,9 +190,9 @@ void Asserv_thread::uart_config_asserv(){
     }
 
     sprintf(str, "%f", command_memory);
-    Ret = LS.WriteString(str);
-    Ret = LS.WriteString("\n");
-    Ret = LS.WriteString("\r");
+    Ret=LS.WriteString("$");
+    Ret=LS.WriteString(str);
+    Ret=LS.WriteString("%");
 
     LS.Close();
 }

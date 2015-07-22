@@ -57,39 +57,37 @@ Uiselfmixingpro::Uiselfmixingpro(QWidget *parent) :
     CaptureDevice* device = DeviceManager::instance().activeDevice()
             ->captureDevice();
 
-    //doubleSpinBoxesGroup = new QGroupBox(tr("Double precision spinboxes"));
 
-    QLabel *Label_alpha = new QLabel(tr("Alpha value"));
+    QLabel *Label_alpha = new QLabel(tr("Alpha value (1,2,4,10)"));
     DoubleSpinBox_alpha = new QDoubleSpinBox;
-    DoubleSpinBox_alpha->setRange(-1000, 1000);
-    DoubleSpinBox_alpha->setDecimals(2);
+    DoubleSpinBox_alpha->setRange(1, 10);
+    DoubleSpinBox_alpha->setDecimals(0);
     DoubleSpinBox_alpha->setValue(alpha_value);
-    //DoubleSpinBox_lambda->setSingleStep(1); //1 par défaut
 
 
     QLabel *Label_lambda = new QLabel(tr("Lambda value"));
     DoubleSpinBox_lambda= new QDoubleSpinBox;
-    DoubleSpinBox_lambda->setRange(-1000, 1000);
-    DoubleSpinBox_lambda->setDecimals(10);
+    DoubleSpinBox_lambda->setRange(1, 10000);
+    DoubleSpinBox_lambda->setDecimals(0);
     DoubleSpinBox_lambda->setValue(lambda_value);
-    DoubleSpinBox_lambda->setSingleStep(0.1);
-    DoubleSpinBox_lambda->setSuffix("nm");
+    DoubleSpinBox_lambda->setSingleStep(1);
+    DoubleSpinBox_lambda->setSuffix(" nm");
 
 
     QLabel *Label_thresh = new QLabel(tr("Threshold value"));
     DoubleSpinBox_thresh = new QDoubleSpinBox;
-    DoubleSpinBox_thresh->setRange(-1000, 1000);
-    DoubleSpinBox_thresh->setDecimals(5);
+    DoubleSpinBox_thresh->setRange(0, 10);
+    DoubleSpinBox_thresh->setDecimals(2);
     DoubleSpinBox_thresh->setValue(thresh_value);
-    DoubleSpinBox_thresh->setSingleStep(0.25);
+    DoubleSpinBox_thresh->setSingleStep(0.01);
 
 
     QLabel *Label_ComboBox_signals = new QLabel(tr("Choix du type de traitement à effectuer"));
     ComboBox_signals= new QComboBox;
     ComboBox_signals->setObjectName("Choix de traitement");
-    ComboBox_signals->addItem("Traitement 1");
-    ComboBox_signals->addItem("Traitement 2");
-    ComboBox_signals->addItem("Traitement 3");
+    ComboBox_signals->addItem("Reconstruction du déplacement");
+    ComboBox_signals->addItem("Franges");
+    ComboBox_signals->addItem("Signal normalisé");
     ComboBox_signals->setCurrentIndex(process_index);
 
     //gestion ok / cancel
