@@ -12,9 +12,7 @@ using namespace std;
 
 void traitement(QVector<double>* s,QVector<double>* buffer)
 {
-    /*QVector<double>* buffer= NULL;
-    unsigned int taille = s->size();
-    buffer = new QVector<double>(taille);*/
+
     unsigned int taille = s->size();
     double *data = s->data();
     double *data_buff = buffer->data();
@@ -93,11 +91,11 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
         }
     }
 
-    Gain = 2/(max_A-min_A); // Amplitude entre -1 et 1
+    Gain = 1/(max_A-min_A); // Amplitude entre -1 et 1
 
     for (unsigned int i=0; i<taille; i++)
     {
-        dataNorm[i] = Gain * data[i];
+        dataNorm[i] = Gain * data[i] + 0.5;
     }
 
     // //////////////////////////////////////////////////// //
@@ -128,7 +126,7 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
 
     extern double alpha_value;
     extern double lambda_value;
-    extern double thresh_value; // = 2.25;
+    extern double thresh_value;
     extern int process_index;
 
 
@@ -172,7 +170,6 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
 
         else
         {
-
             if(signalTest[i]>=(-1)*thresh_value && flag_up == 1)
                 flag_up = 0;
 
@@ -181,8 +178,6 @@ void traitement(QVector<double>* s,QVector<double>* buffer)
 
             frange[i]=0;
         }
-
-        //data_buff[i] = frange[i];
      }
 
 
