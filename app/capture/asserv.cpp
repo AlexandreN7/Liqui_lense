@@ -4,8 +4,8 @@
 
 using namespace std;
 
-#define DEVICE_PORT "/dev/ttyUSB0"                         // ttyUSB0 for linux
-//#define DEVICE_PORT "/dev/ttyACM0"
+//#define DEVICE_PORT "/dev/ttyUSB0"                         // ttyUSB0 for linux
+#define DEVICE_PORT "/dev/ttyACM0"
 
 
 
@@ -52,7 +52,7 @@ void Asserv_thread::uart_config_asserv(){
 
     // Open serial port
 
-    Ret=LS.Open(DEVICE_PORT,57600); // Open serial link at 57600 bauds
+    Ret=LS.Open(DEVICE_PORT,9600); // Open serial link at 57600 bauds
 
     if (Ret!=1)
     {                                                                       // If an error occured...
@@ -209,9 +209,6 @@ void pwm_config_asserv(){}
 void uart_config_manual(){ //gestion manuelle de la postion de la lentille
     serialib LS;                                                            // Object of the serialib class
     int Ret;                                                                // Used for return values
-    //char Buffer[128];
-
-    // Open serial port
 
     Ret=LS.Open(DEVICE_PORT,9600);                                        // Open serial link at 115200 bauds
     if (Ret!=1) {                                                           // If an error occured...

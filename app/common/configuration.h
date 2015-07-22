@@ -80,9 +80,9 @@ public:
     void loadLightScheme();
     void loadDarkScheme();
 
-signals:
+//signals:
     
-public slots:
+//public slots:
 
 private:
 
