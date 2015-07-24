@@ -83,7 +83,13 @@ void Asserv_thread::uart_config_asserv(){
         Ret=LS.WriteString(str);
         Ret=LS.WriteString("%");
 
-        C_values[j] = get_C();
+        if(get_C()-1.8 <0 ) {
+
+            C_values[j] = -get_C()+1.8;
+        }
+        else {
+           C_values[j] = get_C()-1.8;
+        }
         command[j+1] = command[j] + pas_initial;
 
         cout<<"Comm. : "<<command[j]<<endl;
@@ -97,7 +103,13 @@ void Asserv_thread::uart_config_asserv(){
     Ret=LS.WriteString("%");
 
 
-    C_values[dicho_value] = get_C();
+    if(get_C()-1.8 <0 ) {
+
+        C_values[dicho_value] = -get_C()+1.8;
+    }
+    else {
+       C_values[dicho_value] = get_C()-1.8;
+    }
 
     cout<<"Comm. : "<<command[dicho_value]<<endl;
     cout<<"C_val : "<<C_values[dicho_value]<<endl;
@@ -152,7 +164,13 @@ void Asserv_thread::uart_config_asserv(){
             Ret=LS.WriteString("$");
             Ret=LS.WriteString(str);
             Ret=LS.WriteString("%");
-            C_values[j] = get_C();
+            if(get_C()-1.8 <0 ) {
+
+                C_values[j] = -get_C()+1.8;
+            }
+            else {
+               C_values[j] = get_C()-1.8;
+            }
             command[j+1] = command[j] + pas_initial;
             cout<<"Comm. : "<<command[j]<<endl;
             cout<<"C_val : "<<C_values[j]<<endl;
@@ -163,7 +181,14 @@ void Asserv_thread::uart_config_asserv(){
         Ret=LS.WriteString(str);
         Ret=LS.WriteString("%");
 
-        C_values[dicho_value] = get_C();
+        if(get_C()-1.8 <0 ) {
+
+            C_values[dicho_value] = -get_C()+1.8;
+        }
+        else {
+           C_values[dicho_value] = get_C()-1.8;
+        }
+
 
         cout<<"Comm. : "<<command[dicho_value]<<endl;
         cout<<"C_val : "<<C_values[dicho_value]<<endl;
